@@ -1,26 +1,17 @@
 import React from 'react';
 
-
 const Clarifai = require('clarifai');
 
 const app = new Clarifai.App({
  apiKey: '9bd2155eae344e3799387f96f70ac318'
 });
 
-  //
-  // app.models.initModel({id: Clarifai.GENERAL_MODEL, version: "aa7f35c01e0642fda5cf400f543e7c40"})
-  //   .then(generalModel => {
-  //   return generalModel.predict("https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1440,w_2560,x_0,y_0/dpr_1.5/c_limit,w_1044/fl_lossy,q_auto/v1524616078/180424-fallon-alexis-bledel-tease_lscj7g");
-  // })
-  //   .then(response => {
-  //   var concepts = response['outputs'][0]['data']['concepts']
-  //   console.log(concepts);
-  // })
 
 class FaceCapture extends React.Component {
 
   state = {
-    imgUrl: ""
+    clarifaiBase64: "",
+    imgPath: ""
   }
 
   handleChange = (e) => {
@@ -30,10 +21,8 @@ class FaceCapture extends React.Component {
   }
 
   fetchActor = () => {
-    const imgUrl = this.state.imgUrl
-    app.models.predict("e466caa0619f444ab97497640cefc4dc", imgUrl)
-      .then(
-      function(response) {
+    app.models.predict("e466caa0619f444ab97497640cefc4dc", {base64: this.state.clarifaiBase64})
+      .then(response => {
         const actorName = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['name']
         console.log(actorName);
       },
@@ -43,11 +32,35 @@ class FaceCapture extends React.Component {
     );
   }
 
+
+  previewFile = (e) => {
+    const file = e.target.files[0]
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      const clarifaiBase64 = reader.result.split("data:image/jpeg;base64,")[1]
+
+      this.setState({
+        clarifaiBase64: clarifaiBase64,
+        imgPath: reader.result
+      })
+    };
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    }
+  }
+
+
   render(){
     return(
       <div>
-      <input name="imgUrl" placeholder="img url" onChange={this.handleChange}/>
-      <button onClick={this.fetchActor}>Search</button>
+        <div>
+          <input name="imgUrl" placeholder="img url" onChange={this.handleChange}/>
+          <button onClick={this.fetchActor}>Search</button>
+        </div>
+        <input type="file" onChange={this.previewFile}/>
+        {this.state.clarifaiBase64.length ? <img src={this.state.imgPath} alt="img preview"/> : null}
       </div>
     )
   }
