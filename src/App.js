@@ -1,23 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import FaceCapture from './components/FaceCapture'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <img src={'/Shaface-Logo.png'} width="250" alt="logo" />
+        <p className="logoText">ShaFace</p>
+        <button> Login / Signup </button>
+        < FaceCapture />
       </header>
     </div>
   );
