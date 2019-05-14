@@ -1,6 +1,7 @@
 import React from 'react';
 import '../App.css';
 import { Button } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 
 
 function SplashPage(props) {
@@ -28,19 +29,33 @@ function SplashPage(props) {
             onClick={rerouteToHome}
            />
         </span>
-        <span className="SplashPageButton">
-          <Button
-            inverted
-            content='Login / Sign Up'
-            size='big'
-            icon='user'
-            onClick={rerouteToLogin}
-          />
-        </span>
+
+        {
+          props.currentUser
+          ?
+          null
+          :
+          <span className="SplashPageButton">
+            <Button
+              inverted
+              content='Login / Sign Up'
+              size='big'
+              icon='user'
+              onClick={rerouteToLogin}
+            />
+          </span>
+        }
+
         </div>
         </header>
     </div>
   );
 }
 
-export default SplashPage;
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser,
+  }
+}
+
+export default connect(mapStateToProps)(SplashPage);

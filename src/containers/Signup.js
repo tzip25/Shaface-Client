@@ -32,10 +32,14 @@ class Signup extends React.Component {
       })
       .then(res => res.json())
       .then((response) => {
+        console.log(response);
         if (response.errors){
           this.setState({
             errors: response.errors
           })
+        } else {
+          localStorage.setItem("token", response.token)
+          this.props.setUser(response)
         }
       })
     } else {
