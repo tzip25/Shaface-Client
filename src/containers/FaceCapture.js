@@ -22,7 +22,8 @@ class FaceCapture extends React.Component {
     app.models.predict("e466caa0619f444ab97497640cefc4dc", this.state.imgUrl ? this.state.imgUrl : {base64: this.state.clarifaiBase64})
       .then(response => {
         const actorName = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['name']
-        console.log(actorName);
+        console.log(actorName)
+        alert(`ShaDang! That must be ${actorName}`)
       },
       function(err) {
         alert("There was an error reading your photo. Please try again")
