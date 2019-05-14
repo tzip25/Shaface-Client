@@ -1,27 +1,25 @@
 import React from 'react';
 
 const Clarifai = require('clarifai');
-
-const app = new Clarifai.App({
- apiKey: '9bd2155eae344e3799387f96f70ac318'
-});
-
+const app = new Clarifai.App({apiKey: '9bd2155eae344e3799387f96f70ac318'});
 
 class FaceCapture extends React.Component {
 
   state = {
     clarifaiBase64: "",
-    imgPath: ""
+    imgPath: "",
+    imgUrl: null
   }
 
-  handleChange = (e) => {
+  handleURLChange = (e) => {
     this.setState({
-      [e.target.name]: [e.target.value]
+      imgPath: [e.target.value],
+      imgUrl: [e.target.value]
     })
   }
 
   fetchActor = () => {
-    app.models.predict("e466caa0619f444ab97497640cefc4dc", {base64: this.state.clarifaiBase64})
+    app.models.predict("e466caa0619f444ab97497640cefc4dc", this.state.imgUrl ? this.state.imgUrl : {base64: this.state.clarifaiBase64})
       .then(response => {
         const actorName = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['name']
         console.log(actorName);
@@ -32,15 +30,13 @@ class FaceCapture extends React.Component {
     );
   }
 
-
-  previewFile = (e) => {
+  fileUpload = (e) => {
     const file = e.target.files[0]
     const reader = new FileReader();
 
     reader.readAsDataURL(file)
     reader.onload = () => {
       const clarifaiBase64 = reader.result.split("data:image/jpeg;base64,")[1]
-
       this.setState({
         clarifaiBase64: clarifaiBase64,
         imgPath: reader.result
@@ -56,11 +52,15 @@ class FaceCapture extends React.Component {
     return(
       <div>
         <div>
-          <input name="imgUrl" placeholder="img url" onChange={this.handleChange}/>
-          <button onClick={this.fetchActor}>Search</button>
+          <input name="imgUrl" placeholder="img url" onChange={this.handleURLChange}/>
         </div>
-        <input type="file" onChange={this.previewFile}/>
-        {this.state.clarifaiBase64.length ? <img src={this.state.imgPath} alt="img preview"/> : null}
+        or
+        <br/>
+        <label htmlFor="file-upload" className="custom-file-upload">Upload an Image</label>
+        <input id="file-upload" type="file" onChange={this.fileUpload}/><br/>
+        {this.state.imgPath.length ? <img src={this.state.imgPath} alt="img preview" className="imgPrev"/> : null}
+        <br/>
+        <button onClick={this.fetchActor}>Search</button>
       </div>
     )
   }
