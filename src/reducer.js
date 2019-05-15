@@ -1,5 +1,6 @@
 const initialState = {
-  currentUser: null
+  currentUser: null,
+  currentActor: null
 }
 
 function reducer(state = initialState, action){
@@ -7,8 +8,8 @@ function reducer(state = initialState, action){
   switch(action.type){
     case "SET_USER":
       return {...state, currentUser: action.payload}
-    case "LOG_OUT":
-      return {...state, currentUser: null}
+    case "SET_ACTOR":
+      return {...state, currentActor: action.payload}
     default:
       return state
   }

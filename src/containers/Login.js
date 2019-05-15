@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, Message } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
-const url = "http://localhost:3000"
+const APP_URL = "http://localhost:3000"
 
 class Login extends React.Component {
 
@@ -20,7 +20,7 @@ class Login extends React.Component {
 
   login = (e) => {
     e.preventDefault()
-    fetch(`${url}/login`, {
+    fetch(`${APP_URL}/login`, {
       method: 'POST',
       body: JSON.stringify(this.state),
       headers:{
@@ -35,15 +35,15 @@ class Login extends React.Component {
         })
       } else {
         localStorage.setItem("token", response.token)
-        this.props.setUser(response)
-        // this.props.history.push('/home')
+        this.props.setUser(response.user)
+        this.props.history.push('/home')
       }
     })
   }
 
   render(){
     return(
-      <div className="loginForm">
+      <>
         <h1 className="h1HeaderText">Login</h1>
         <Form onSubmit={this.login}>
           {this.state.errors && <Message negative><Message.Header>{this.state.errors}</Message.Header></Message> }
@@ -59,7 +59,7 @@ class Login extends React.Component {
           </Form.Group>
           <Button type='submit'>Submit</Button>
         </Form>
-      </div>
+      </>
     )
   }
 }

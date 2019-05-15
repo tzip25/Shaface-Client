@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import FaceCapture from './containers/FaceCapture'
 import Nav from './components/Nav'
 import LoginContainer from './components/LoginContainer'
@@ -24,22 +24,10 @@ class App extends React.Component {
     )
   }
 
-  setCurrentUser = (response) => {
-    // this.setState({
-    //   currentUser: response.user
-    // }, () => {
-    // })
-  }
-
   logOut = () => {
 		localStorage.removeItem("token")
     this.props.setUser(null)
-    // this.props.history.push("/login")
-		// this.setState({
-		// 	currentUser: null
-		// }, () => {
-		// 	this.props.history.push("/login")
-		// })
+    this.props.history.push("/home")
 	}
 
   componentDidMount(){
@@ -63,7 +51,6 @@ class App extends React.Component {
 	}
 
   render(){
-    console.log(window.location.pathname.match);
     return (
       <div className="App">
         <div className="AppBody">
@@ -84,4 +71,4 @@ function mapDispatchToProps(dispatch) {
     }
   }
 }
-export default connect(null, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(withRouter(App));

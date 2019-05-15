@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, Form, Message } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
+
 import { connect } from 'react-redux'
 
-const url = "http://localhost:3000"
+const APP_URL = "http://localhost:3000"
 
 class Signup extends React.Component {
 
@@ -25,21 +27,21 @@ class Signup extends React.Component {
   createUser = (e) => {
     e.preventDefault()
     if (this.state.password === this.state.passwordConfirm) {
-      fetch(`${url}/signup`, {
+      fetch(`${APP_URL}/signup`, {
         method: 'POST',
         body: JSON.stringify(this.state),
         headers:{'Content-Type': 'application/json'}
       })
       .then(res => res.json())
       .then((response) => {
-        console.log(response);
         if (response.errors){
           this.setState({
             errors: response.errors
           })
         } else {
           localStorage.setItem("token", response.token)
-          this.props.setUser(response)
+          this.props.setUser(response.user)
+          this.props.history.push("/profile")
         }
       })
     } else {
@@ -51,7 +53,7 @@ class Signup extends React.Component {
 
   render(){
     return(
-      <div className="loginForm">
+      <>
       <h1 className="h1HeaderText">Sign Up</h1>
         <Form onSubmit={this.createUser}>
           {this.state.errors && <Message negative><Message.Header>{this.state.errors}</Message.Header></Message>}
@@ -87,7 +89,7 @@ class Signup extends React.Component {
           </Form.Group>
         <Button type='submit'>Submit</Button>
       </Form>
-    </div>
+    </>
     )
   }
 }
@@ -101,4 +103,4 @@ function mapDispatchToProps(dispatch) {
     }
   }
 }
-export default connect(null, mapDispatchToProps)(Signup);
+export default connect(null, mapDispatchToProps)(withRouter(Signup));
