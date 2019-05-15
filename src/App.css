@@ -32,7 +32,7 @@
   padding-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 220px;
+  max-width: 240px;
 }
 
 .searchFormButton {
@@ -41,8 +41,8 @@
 
 .imgPrev {
   margin: 10px 0 5px 0;
-  width: 220px;
-  height: 220px;
+  width: 240px;
+  height: 240px;
   object-fit: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -50,7 +50,9 @@
 }
 
 .actorCard {
-  margin: auto;
+  vertical-align: top;
+  padding-top: 20px;
+  padding-bottom: 20px;
   max-width: 450px;
 }
 
