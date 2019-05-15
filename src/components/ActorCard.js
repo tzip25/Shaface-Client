@@ -15,7 +15,6 @@ class ActorCard extends React.Component {
     return(
 
       actor ?
-      <div className="actorCard">
         <Card
           fluid
           color='yellow'
@@ -25,7 +24,6 @@ class ActorCard extends React.Component {
           description={actor.place_of_birth}
           extra={extra}
         />
-        </div>
       :
       null
 

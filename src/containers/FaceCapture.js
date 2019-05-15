@@ -28,7 +28,7 @@ class FaceCapture extends React.Component {
   fetchActorFromClarifai = () => {
     app.models.predict("e466caa0619f444ab97497640cefc4dc", this.state.imgUrl ? this.state.imgUrl : {base64: this.state.clarifaiBase64})
       .then(response => {
-
+        console.log(response);
         const topMatchValue = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['value']
         const actorName = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['name']
 
@@ -41,18 +41,19 @@ class FaceCapture extends React.Component {
         })
       },
       function(err) {
-        alert("There was an error reading your photo. Please try again")
+        alert("There was an error reading your image. Please try another photo.")
       }
     );
   }
 
   fileUpload = (e) => {
     const file = e.target.files[0]
+    const fileType = file.type.split('/')[1]
     const reader = new FileReader();
 
     reader.readAsDataURL(file)
     reader.onload = () => {
-      const clarifaiBase64 = reader.result.split("data:image/jpeg;base64,")[1]
+      const clarifaiBase64 = reader.result.split(`data:image/${fileType};base64,`)[1]
       this.setState({
         clarifaiBase64: clarifaiBase64,
         imgPath: reader.result,
@@ -135,14 +136,13 @@ class FaceCapture extends React.Component {
           :
           null
         }
-
       </div>
 
-      <div>
+      <div className="actorCard">
       {
         this.state.foundActor
         ?
-        <div>
+        <>
         <Message color='teal'>
         <Message.Header>
         ShaBang!
@@ -150,13 +150,12 @@ class FaceCapture extends React.Component {
         </Message.Header>
         </Message>
         <ActorCard actor={this.state.foundActor}/>
-        </div>
+        </>
         :
         null
       }
       </div>
       </div>
-
 
     )
   }
