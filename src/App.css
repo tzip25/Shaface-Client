@@ -9,6 +9,25 @@
   min-height: 100vh;
 }
 
+.mainBody {
+  text-align: left;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 70%;
+}
+
+.searchForm {
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  max-width: 250px;
+}
+
+.searchFormButton {
+  width: 100%
+}
+
 .SplashPage {
   background-color: #FFCE0C;
   min-height: 100vh;
@@ -36,8 +55,9 @@
 
 /* url or img uplaod, preview img before hitting "submit" button to search api */
 .imgPrev {
-  width: 200px;
-  height: 300px;
+  margin: 0px 0 5px 0;
+  width: 250px;
+  height: 250px;
   object-fit: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -47,32 +67,13 @@
   color: #FFCE0C;
 }
 
-.loginForm {
-  text-align: left;
-  margin: auto;
-  padding-top: 3%;
-  padding-bottom: 5%;
-  width: 60%;
-}
 
-input[type="file"] {
-    display: none;
-}
-.custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 2px 2px;
-    cursor: pointer;
-}
-
-
-/* Top Navigation */
+/* Website Top Navigation */
 .nav {
   height: 50px;
   width: 100%;
   background-color: #FFCE0C;
   position: relative;
-  margin-bottom: 10px;
 }
 
 .nav-header {
@@ -80,8 +81,8 @@ input[type="file"] {
 }
 
 .nav-title {
-  display: inline-block;
-  font-size: 3vh;
+  float: left;
+  font-size: 2em;
   color: #ffffff;
   font-weight: bold;
   padding: 10px 10px 10px 10px;
@@ -94,19 +95,26 @@ input[type="file"] {
 .nav-links {
   display: inline;
   float: right;
-  font-size: 2vh;
+  font-size: 1em;
+  font-weight: bold;
+
 }
 
 .nav > .nav-links > a {
-  display: inline-block;
-  padding: 13px 10px 13px 10px;
+  float: right;
+  padding: 15px 20px 15px 20px;
   text-decoration: none;
   color: #ffffff;
 }
 
 .nav > .nav-links > a:hover {
   height: 50px;
-  background-color: #65276E;
+  color: #65276E;
+}
+
+.activeNav {
+  color: #65276E;
+  font-weight: bold;
 }
 
 .nav > #nav-check {
@@ -124,7 +132,7 @@ input[type="file"] {
     display: inline-block;
     width: 50px;
     height: 50px;
-    padding: 13px;
+    padding: 15px;
   }
   .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
     background-color: rgba(0, 0, 0, 0.3);
@@ -136,12 +144,10 @@ input[type="file"] {
     border-top: 2px solid #eee;
   }
   .nav > .nav-links {
-    position: absolute;
-    display: block;
     width: 100%;
     background-color: #333;
     height: 0px;
-    transition: all 0.3s ease-in;
+    transition: all 0.4s ease-in;
     overflow-y: hidden;
     top: 50px;
     left: 0px;
@@ -154,7 +160,7 @@ input[type="file"] {
     height: 0px;
   }
   .nav > #nav-check:checked ~ .nav-links {
-    height: calc(100vh - 50px);
+    height: calc(100vh);
     overflow-y: auto;
   }
 }

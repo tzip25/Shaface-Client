@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 
 class Nav extends React.Component {
 
-  // menuClass = () => window.location.pathname === this.props.path ? "item active" : "item"
+  menuClass = (path) => window.location.pathname === path ? "activeNav" : null
 
   render(){
       return(
@@ -22,27 +23,42 @@ class Nav extends React.Component {
               <span></span>
             </label>
           </div>
-          
+
           <div className="nav-links">
-
-          <Link to="/home">Find a Face</Link>
-
-          {
-            this.props.currentUser
-            ?
-            <Link to="/profile">Profile</Link>
-            :
-            null
-          }
 
           {
             this.props.currentUser
           ?
-            <Link to="/login"><div onClick={this.props.logOut}>Logout</div></Link>
+            <Link to="/login">
+              <div onClick={this.props.logOut}>
+                Logout
+              </div>
+            </Link>
           :
-            <Link to="/login">Login</Link>
+            <Link to="/login">
+              <span className={this.menuClass('/login')}>
+                Login
+              </span>
+            </Link>
           }
 
+          {
+            this.props.currentUser
+            ?
+            <Link to="/profile">
+              <span className={this.menuClass('/profile')}>
+                Profile
+              </span>
+            </Link>
+            :
+            null
+          }
+
+          <Link to="/home">
+            <span className={this.menuClass('/home')}>
+              Find a Face
+            </span>
+          </Link>
 
           </div>
         </div>
@@ -56,4 +72,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps)(withRouter(Nav));
