@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Input, Divider, Message } from 'semantic-ui-react'
+import ActorCard from '../components/ActorCard'
 
 const Clarifai = require('clarifai');
 const app = new Clarifai.App({apiKey: '9bd2155eae344e3799387f96f70ac318'});
@@ -11,13 +12,16 @@ class FaceCapture extends React.Component {
     clarifaiBase64: "",
     imgPath: "",
     imgUrl: null,
-    noMatchFound: null
+    noMatchFound: null,
+    foundActor: null
   }
 
   handleURLChange = (e) => {
     this.setState({
       imgPath: [e.target.value],
-      imgUrl: [e.target.value]
+      imgUrl: [e.target.value],
+      noMatchFound: null,
+      foundActor: null
     })
   }
 
@@ -33,7 +37,7 @@ class FaceCapture extends React.Component {
         this.fetchActorFromBackend({name: actorName})
         :
         this.setState({
-          noMatchFound: "No likely matches found."
+          noMatchFound: true
         })
       },
       function(err) {
@@ -51,7 +55,9 @@ class FaceCapture extends React.Component {
       const clarifaiBase64 = reader.result.split("data:image/jpeg;base64,")[1]
       this.setState({
         clarifaiBase64: clarifaiBase64,
-        imgPath: reader.result
+        imgPath: reader.result,
+        noMatchFound: null,
+        foundActor: null
       })
     };
     reader.onerror = (error) => {
@@ -66,13 +72,18 @@ class FaceCapture extends React.Component {
       headers:{'Content-Type': 'application/json'}
     })
     .then(res => res.json())
-    .then(console.log)
+    .then(actor => {
+      this.setState({
+        foundActor: actor
+      })
+    })
   }
 
   fileInputRef = React.createRef();
 
   render(){
     return(
+      <div className="searchPageDiv">
       <div className="searchForm">
         <h1 className="h1HeaderText">Find a New Face</h1>
         <Input
@@ -96,8 +107,8 @@ class FaceCapture extends React.Component {
           onChange={this.fileUpload}
         />
         <br/>
-        <br/>
-        {this.state.imgPath.length ?
+        {
+          this.state.imgPath.length ?
           <>
           <img src={this.state.imgPath} alt="img preview" className="imgPrev"/>
           <Button
@@ -118,13 +129,32 @@ class FaceCapture extends React.Component {
           <Message negative>
             <Message.Header>
               ShaDang
-              <p>{this.state.noMatchFound}</p>
+              <p>No likely matches found.</p>
             </Message.Header>
           </Message>
           :
           null
         }
 
+      </div>
+
+      <div>
+      {
+        this.state.foundActor
+        ?
+        <div>
+        <Message color='teal'>
+        <Message.Header>
+        ShaBang!
+        <p>We found a likely match.</p>
+        </Message.Header>
+        </Message>
+        <ActorCard actor={this.state.foundActor}/>
+        </div>
+        :
+        null
+      }
+      </div>
       </div>
 
 
