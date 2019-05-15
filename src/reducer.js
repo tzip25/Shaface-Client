@@ -1,6 +1,7 @@
 const initialState = {
   currentUser: null,
-  currentActor: null
+  actorModal: null,
+  foundActor: null
 }
 
 function reducer(state = initialState, action){
