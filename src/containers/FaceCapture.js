@@ -35,7 +35,7 @@ class FaceCapture extends React.Component {
           const topMatchValue = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['value']
           const actorName = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['name']
 
-          topMatchValue > 0.1
+          topMatchValue > 0.15
           ?
           this.fetchActorFromBackend({name: actorName})
           :
@@ -63,6 +63,7 @@ class FaceCapture extends React.Component {
         clarifaiBase64: clarifaiBase64,
         imgPath: reader.result,
         noMatchFound: null,
+        imgUrl: null,
       })
     };
     reader.onerror = (error) => {
@@ -78,10 +79,17 @@ class FaceCapture extends React.Component {
     })
     .then(res => res.json())
     .then(actor => {
-      this.setState({
-        loading: false,
-        foundActor: actor
-      })
+      actor[0] === "no actor found"
+      ?
+        this.setState({
+          noMatchFound: true,
+          loading: false
+        })
+      :
+        this.setState({
+          loading: false,
+          foundActor: actor
+        })
     })
   }
 
