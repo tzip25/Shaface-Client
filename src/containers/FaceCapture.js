@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Input, Divider, Message } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
+import Loading from '../components/Loading'
 
 const Clarifai = require('clarifai');
 const app = new Clarifai.App({apiKey: '9bd2155eae344e3799387f96f70ac318'});
@@ -13,7 +14,8 @@ class FaceCapture extends React.Component {
     imgPath: "",
     imgUrl: null,
     noMatchFound: null,
-    foundActor: null
+    foundActor: null,
+    loading: false
   }
 
   handleURLChange = (e) => {
@@ -21,29 +23,32 @@ class FaceCapture extends React.Component {
       imgPath: [e.target.value],
       imgUrl: [e.target.value],
       noMatchFound: null,
-      foundActor: null
     })
   }
 
   fetchActorFromClarifai = () => {
-    app.models.predict("e466caa0619f444ab97497640cefc4dc", this.state.imgUrl ? this.state.imgUrl : {base64: this.state.clarifaiBase64})
-      .then(response => {
-        console.log(response);
-        const topMatchValue = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['value']
-        const actorName = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['name']
+    this.setState({
+      loading: true
+    }, () => {
+      app.models.predict("e466caa0619f444ab97497640cefc4dc", this.state.imgUrl ? this.state.imgUrl : {base64: this.state.clarifaiBase64})
+        .then(response => {
+          const topMatchValue = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['value']
+          const actorName = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['name']
 
-        topMatchValue > 0.1
-        ?
-        this.fetchActorFromBackend({name: actorName})
-        :
-        this.setState({
-          noMatchFound: true
-        })
-      },
-      function(err) {
-        alert("There was an error reading your image. Please try another photo.")
-      }
-    );
+          topMatchValue > 0.1
+          ?
+          this.fetchActorFromBackend({name: actorName})
+          :
+          this.setState({
+            noMatchFound: true,
+            loading: false
+          })
+        },
+        function(err) {
+            alert("There was an error reading your image. Please try another photo.")
+        }
+      );
+    })
   }
 
   fileUpload = (e) => {
@@ -58,7 +63,6 @@ class FaceCapture extends React.Component {
         clarifaiBase64: clarifaiBase64,
         imgPath: reader.result,
         noMatchFound: null,
-        foundActor: null
       })
     };
     reader.onerror = (error) => {
@@ -75,6 +79,7 @@ class FaceCapture extends React.Component {
     .then(res => res.json())
     .then(actor => {
       this.setState({
+        loading: false,
         foundActor: actor
       })
     })
@@ -129,8 +134,7 @@ class FaceCapture extends React.Component {
           ?
           <Message negative>
             <Message.Header>
-              ShaDang
-              <p>No likely matches found.</p>
+              ShaDang. No likely matches found.
             </Message.Header>
           </Message>
           :
@@ -139,14 +143,14 @@ class FaceCapture extends React.Component {
       </div>
 
       <div className="actorCard">
+      { this.state.loading ? <Loading/> : null }
       {
         this.state.foundActor
         ?
         <>
         <Message color='teal'>
         <Message.Header>
-        ShaBang!
-        <p>We found a likely match.</p>
+        ShaBang! We found a likely match.
         </Message.Header>
         </Message>
         <ActorCard actor={this.state.foundActor}/>
@@ -155,7 +159,7 @@ class FaceCapture extends React.Component {
         null
       }
       </div>
-      </div>
+    </div>
 
     )
   }
