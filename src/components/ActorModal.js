@@ -10,7 +10,7 @@ class ActorModal extends React.Component {
   open = () => this.setState({ open: true })
   close = () => this.setState({ open: false })
   sortedMovies = () => this.props.actor.movies.sort((a,b) => a.year <= new Date().getFullYear() ? b.year - a.year : null).slice(0,20)
-  formattedMovies = () => this.sortedMovies().map(movie => <li key={movie.id}>{movie.year}: {movie.title}</li>)
+  formattedMovies = () => this.sortedMovies().map(movie => <li key={movie.id}><span className="movieTitle">{movie.title}</span><br/>Release: {movie.year}<br/>Type: {movie.media_type}<br/>{movie.genres ? `Genres: ${movie.genres.join(", ")}` : null}<br/><br/></li>)
 
   openIMDB = () => {
     return window.open(`https://www.imdb.com/name/${this.props.actor.imdb_id}`, "_blank")

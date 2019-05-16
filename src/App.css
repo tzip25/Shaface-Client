@@ -96,6 +96,11 @@
   color: #FFCE0C;
 }
 
+.movieTitle{
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
 .actorNameCaps{
   color: #32BEBD;
   text-transform: capitalize;
