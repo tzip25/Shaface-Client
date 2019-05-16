@@ -32,7 +32,7 @@
   padding-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 240px;
+  max-width: 270px;
 }
 
 .searchFormButton {
@@ -41,19 +41,31 @@
 
 .imgPrev {
   margin: 10px 0 5px 0;
-  width: 240px;
-  height: 240px;
+  width: 270px;
+  height: 270px;
   object-fit: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  /* opacity: 0.5; */
+}
+
+.actorCardImage {
+  margin: 10px 0 5px 0;
+  width: 400px;
+  height: 450px;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 .actorCard {
   vertical-align: top;
   padding-top: 20px;
   padding-bottom: 20px;
-  max-width: 450px;
+}
+
+.actorDetails {
+  text-align: left;
+
 }
 
 .SplashPage {
@@ -85,6 +97,75 @@
   color: #FFCE0C;
 }
 
+.actorNameCaps{
+  color: #32BEBD;
+  text-transform: capitalize;
+}
+
+.LoadingDiv {
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+}
+
+.rotate {
+  -webkit-animation: rotation 3s infinite linear;
+  animation: rotation 3s infinite linear;
+  opacity: 0.6;
+}
+
+@keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+@-webkit-keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+.pulsate {
+  -webkit-animation: pulsate 2s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  animation: pulsate 2s ease-out;
+  animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1.0;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1.0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
 
 /* Website Top Navigation */
 .nav {
@@ -196,24 +277,24 @@
 @-webkit-keyframes roll-in-left {
   0% {
     -webkit-transform: translateX(-800px) rotate(-540deg);
-            transform: translateX(-800px) rotate(-540deg);
+    transform: translateX(-800px) rotate(-540deg);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateX(0) rotate(0deg);
-            transform: translateX(0) rotate(0deg);
+    transform: translateX(0) rotate(0deg);
     opacity: 1;
   }
 }
 @keyframes roll-in-left {
   0% {
     -webkit-transform: translateX(-800px) rotate(-540deg);
-            transform: translateX(-800px) rotate(-540deg);
+    transform: translateX(-800px) rotate(-540deg);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateX(0) rotate(0deg);
-            transform: translateX(0) rotate(0deg);
+    transform: translateX(0) rotate(0deg);
     opacity: 1;
   }
 }
