@@ -49,7 +49,6 @@
 }
 
 .actorCardImage {
-  margin: 10px 0 5px 0;
   width: 400px;
   height: 450px;
   object-fit: cover;

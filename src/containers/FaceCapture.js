@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Input, Divider, Message } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
 import Loading from '../components/Loading'
-
 const Clarifai = require('clarifai');
 const app = new Clarifai.App({apiKey: '9bd2155eae344e3799387f96f70ac318'});
 const APP_URL = "http://localhost:3000"
