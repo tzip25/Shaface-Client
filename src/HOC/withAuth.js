@@ -1,17 +1,35 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import Loading from '../components/Loading'
+const url = "http://localhost:3000"
 
 function withAuth(MyComponent){
 
-  return (
-    class extends React.Component{
+    class WithAuth extends React.Component{
 
       renderPage = () => {
         const token = localStorage.getItem("token")
-        if (token) {
-            return <MyComponent {...this.props}/>
+
+    		if (!this.props.currentUser && token){
+    			fetch(`${url}/auto_login`, {
+    				headers: {
+    					"Authorization": token
+    				}
+    			})
+    			.then(res => res.json())
+    			.then((response) => {
+    				if (response.errors) {
+    					return null
+    				} else {
+    					this.props.setUser(response)
+    				}
+    			})
+          return <Loading/>
+    		} else if (this.props.currentUser) {
+          return <MyComponent {...this.props}/>
         } else {
-            return <Redirect to="/login" />
+          return <Redirect to="/login" />
         }
       }
 
@@ -21,7 +39,24 @@ function withAuth(MyComponent){
         )
       }
     }
-  )
+
+    function mapStateToProps(state) {
+      return {
+        currentUser: state.currentUser,
+      }
+    }
+
+    function mapDispatchToProps(dispatch) {
+      return {
+        setUser: (currentUser) => {
+          // dispatch is our new setState and it takes an object with a type and a payload
+          dispatch({type: "SET_USER", payload: currentUser})
+        }
+      }
+    }
+
+    return connect(mapStateToProps, mapDispatchToProps)(WithAuth)
 }
+
 
 export default withAuth
