@@ -3,7 +3,7 @@ import { Button, Form, Message } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const APP_URL = "http://bfa47feb.ngrok.io"
+const APP_URL = "http://localhost:3000"
 
 class Signup extends React.Component {
 

@@ -12,7 +12,7 @@
 .mainBody {
   text-align: left;
   margin: auto;
-  padding-top: 40px;
+  padding-top: 20px;
   padding-bottom: 20px;
   width: 80%;
 }
@@ -22,14 +22,9 @@
   display: flex;
   flex-wrap: wrap;
   margin: auto;
-  padding-top: 40px;
+  padding-top: 20px;
   padding-bottom: 20px;
   width: 80%;
-}
-
-.profileInfo {
-  padding: 20px 0px 20px 0;
-  vertical-align: bottom;
 }
 
 .profileDetailsSegment {
@@ -51,7 +46,7 @@
   display: flex;
   flex-wrap: wrap;
   margin: auto;
-  padding-top: 40px;
+  padding-top: 20px;
   padding-bottom: 20px;
   width: 80%;
 }
