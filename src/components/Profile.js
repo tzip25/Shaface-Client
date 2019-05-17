@@ -14,7 +14,7 @@ class Profile extends React.Component {
   render(){
     return(
       <div className="profilePage">
-        <span className="profileInfo">
+        <span>
           <UserInfo/>
         </span>
         <Segment.Group compact className="actorTileSegment">
@@ -22,7 +22,7 @@ class Profile extends React.Component {
           <h1 className="RecentSearchText">Search History</h1>
           </Segment>
           <Segment >
-              {this.renderActorTiles()}
+              {this.props.currentUser.actors && this.renderActorTiles()}
           </Segment>
           </Segment.Group >
       </div>

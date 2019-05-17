@@ -8,7 +8,7 @@ import Profile from './components/Profile'
 import SplashPage from './components/SplashPage'
 import { connect } from 'react-redux'
 
-const APP_URL = "http://bfa47feb.ngrok.io"
+const APP_URL = "http://localhost:3000"
 
 class App extends React.Component {
 

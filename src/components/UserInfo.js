@@ -1,7 +1,9 @@
 import React from 'react';
-import { Button, Input, Form, Segment } from 'semantic-ui-react'
+import { Button, Input, Form, Segment, Modal, Header } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-const APP_URL = "http://bfa47feb.ngrok.io"
+
+const APP_URL = "http://localhost:3000"
 
 
 class UserInfo extends React.Component {
@@ -11,8 +13,13 @@ class UserInfo extends React.Component {
     last_name: "",
     username: "",
     email: "",
-    edit: false
+    edit: false,
+    open: false
   }
+
+  closeModal = () => this.setState({ open: false })
+  openModal = () => this.setState({ open: true })
+  editProfile = () => this.setState({edit: true})
 
   componentDidMount(){
     this.setState({
@@ -24,9 +31,17 @@ class UserInfo extends React.Component {
     })
   }
 
-  editProfile = () => {
-    this.setState({
-      edit: true
+  deleteProfile = () => {
+    fetch(`${APP_URL}/users/${this.props.currentUser.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      localStorage.removeItem("token")
+      this.props.setUser(null)
+      this.props.history.push("/home")
     })
   }
 
@@ -67,7 +82,17 @@ class UserInfo extends React.Component {
               <b>Email:</b> {this.props.currentUser.email}
             </span>
             <span className="profileDetails">
-            <Button onClick={this.editProfile} compact >Edit Profile</Button>
+            <Button compact basic color="teal" onClick={this.editProfile} >Edit Profile</Button>
+            <Button compact basic negative onClick={this.openModal}>Delete Account</Button>
+              <Modal open={this.state.open} size="tiny">
+                  <Modal.Content>
+                    <Header><p>Are you sure you want to delete your account?</p></Header>
+                  </Modal.Content>
+                <Modal.Actions>
+                <Button color="teal" onClick={this.closeModal} >No! Go Back</Button>
+                <Button negative onClick={this.deleteProfile} >Yes. Delete Account</Button>
+                </Modal.Actions>
+              </Modal>
             </span>
           </Segment>
       )
@@ -108,7 +133,7 @@ class UserInfo extends React.Component {
             </span>
             <span className="profileDetails">
             <br/>
-            <Button compact >Save</Button>
+            <Button basic color="teal" >Save</Button>
             </span>
             </Form>
         )
@@ -133,4 +158,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UserInfo));
