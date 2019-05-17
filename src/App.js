@@ -8,7 +8,7 @@ import Profile from './components/Profile'
 import SplashPage from './components/SplashPage'
 import { connect } from 'react-redux'
 
-const url = "http://localhost:3000"
+const APP_URL = "http://bfa47feb.ngrok.io"
 
 class App extends React.Component {
 
@@ -34,7 +34,7 @@ class App extends React.Component {
 		const token = localStorage.getItem("token")
 
 		if (token){
-			fetch(`${url}/auto_login`, {
+			fetch(`${APP_URL}/auto_login`, {
 				headers: {
 					"Authorization": token
 				}
@@ -51,7 +51,7 @@ class App extends React.Component {
 	}
 
   render(){
-    
+
     return (
       <div className="App">
         <div className="AppBody">

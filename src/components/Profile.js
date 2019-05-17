@@ -2,7 +2,7 @@ import React from 'react';
 import withAuth from '../HOC/withAuth'
 import UserInfo from './UserInfo'
 import ActorTile from './ActorTile'
-
+import { Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 class Profile extends React.Component {
@@ -17,10 +17,14 @@ class Profile extends React.Component {
         <span className="profileInfo">
           <UserInfo/>
         </span>
-        <div className="actorTileDiv">
-          <h1 className="RecentSearchText">Your Recent Searches</h1>
-          {this.renderActorTiles()}
-        </div>
+        <Segment.Group compact className="actorTileSegment">
+          <Segment secondary>
+          <h1 className="RecentSearchText">Search History</h1>
+          </Segment>
+          <Segment >
+              {this.renderActorTiles()}
+          </Segment>
+          </Segment.Group >
       </div>
     )
   }
