@@ -14,6 +14,7 @@ class ActorCard extends React.Component {
       />
     )
   }
+  
   render(){
     const { actor } = this.props
     const sortedMovies = actor.movies.sort((a,b) => a.year <= new Date().getFullYear() ? b.year - a.year : null).slice(0,5)
@@ -26,7 +27,7 @@ class ActorCard extends React.Component {
         <div className="actorCard">
           <Grid stackable columns={2}>
             <Grid.Column>
-              <Image className="actorCardImage" src={actor.img_url} />
+              <Image className="actorCardImage" src={actor.img_url} width="300px"/>
             </Grid.Column>
             <Grid.Column>
               <div className="actorDetails">

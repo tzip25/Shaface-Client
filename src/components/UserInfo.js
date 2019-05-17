@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input } from 'semantic-ui-react'
+import { Button, Input, Form } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 const APP_URL = "http://localhost:3000"
 
@@ -37,13 +37,16 @@ class UserInfo extends React.Component {
   }
 
   updateUserInfo = () => {
+    const token = localStorage.getItem("token")
+
     fetch(`${APP_URL}/edituser`, {
       method: 'POST',
       body: JSON.stringify(this.state),
-      headers:{'Content-Type': 'application/json'}
+      headers:{'Content-Type': 'application/json', "Authorization": token}
     })
     .then(res => res.json())
-    .then(res => {
+    .then(user => {
+      this.props.setUser(user)
       this.setState({
         edit: false
       })
@@ -51,10 +54,9 @@ class UserInfo extends React.Component {
   }
 
   render(){
-    console.log(this.state);
       if(this.state.edit === false){
         return(
-          <div className="mainBody">
+          <div >
             <h1 className="actorNameCaps">{this.props.currentUser.first_name} {this.props.currentUser.last_name}</h1>
             <p><b>Username:</b> {this.props.currentUser.username}</p>
             <p><b>Email:</b> {this.props.currentUser.email}</p>
@@ -63,7 +65,7 @@ class UserInfo extends React.Component {
       )
     } else if(this.state.edit) {
         return (
-          <div className="mainBody">
+            <Form onSubmit={this.updateUserInfo} >
               <b>First Name:</b>
               <br/>
               <Input
@@ -96,8 +98,8 @@ class UserInfo extends React.Component {
                 onChange={this.handleChange}
               />
             <br/><br/>
-            <Button onClick={this.updateUserInfo} compact >Save</Button>
-          </div>
+            <Button compact >Save</Button>
+            </Form>
         )
       } else {
         return null
@@ -106,6 +108,13 @@ class UserInfo extends React.Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    setUser: (currentUser) => {
+      dispatch({type: "SET_USER", payload: currentUser})
+    }
+  }
+}
 
 function mapStateToProps(state) {
   return {
@@ -113,4 +122,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(UserInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);

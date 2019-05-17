@@ -1,7 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import Loading from '../components/Loading'
 const url = "http://localhost:3000"
 
 function withAuth(MyComponent){
@@ -25,7 +24,7 @@ function withAuth(MyComponent){
     					this.props.setUser(response)
     				}
     			})
-          return <Loading/>
+          return null
     		} else if (this.props.currentUser) {
           return <MyComponent {...this.props}/>
         } else {

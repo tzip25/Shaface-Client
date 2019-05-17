@@ -14,16 +14,34 @@
   margin: auto;
   padding-top: 40px;
   padding-bottom: 20px;
-  width: 70%;
+  width: 80%;
+}
+
+.profilePage {
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  width: 80%;
+}
+
+.profileInfo {
+  padding: 20px 40px 20px 0;
+}
+
+.RecentSearchText {
+  color: #65276E;
 }
 
 .searchPageDiv {
   display: flex;
   flex-wrap: wrap;
   margin: auto;
-  padding-top: 20px;
+  padding-top: 40px;
   padding-bottom: 20px;
-  width: 70%;
+  width: 80%;
 }
 
 .searchForm {
@@ -49,8 +67,7 @@
 }
 
 .actorCardImage {
-  width: 400px;
-  height: 450px;
+  height: 400px;
   object-fit: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -64,7 +81,34 @@
 
 .actorDetails {
   text-align: left;
+}
 
+.tileImage {
+  margin: 10px 0 5px 0;
+  width: 180px;
+  height: 210px;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.actorTileDiv {
+  margin: 25px 0 5px 0;
+}
+
+.actorTileSegment {
+  float: left;
+  margin: 10px 10px 10px 0;
+}
+
+.actorTileName {
+  float: left;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.actorTileInfoButton {
+  float: right;
 }
 
 .SplashPage {

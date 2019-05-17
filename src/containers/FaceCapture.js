@@ -5,6 +5,7 @@ import Loading from '../components/Loading'
 const Clarifai = require('clarifai');
 const app = new Clarifai.App({apiKey: '9bd2155eae344e3799387f96f70ac318'});
 const APP_URL = "http://localhost:3000"
+let topMatchValue = ""
 
 class FaceCapture extends React.Component {
 
@@ -14,7 +15,7 @@ class FaceCapture extends React.Component {
     imgUrl: null,
     noMatchFound: null,
     foundActor: null,
-    loading: false
+    loading: false,
   }
 
   handleURLChange = (e) => {
@@ -31,7 +32,7 @@ class FaceCapture extends React.Component {
     }, () => {
       app.models.predict("e466caa0619f444ab97497640cefc4dc", this.state.imgUrl ? this.state.imgUrl : {base64: this.state.clarifaiBase64})
         .then(response => {
-          const topMatchValue = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['value']
+          topMatchValue = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['value']
           const actorName = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['name']
 
           topMatchValue > 0.15
@@ -71,10 +72,11 @@ class FaceCapture extends React.Component {
   }
 
   fetchActorFromBackend = (actorName) => {
+    const token = localStorage.getItem("token")
     fetch(`${APP_URL}/actors`, {
       method: 'POST',
       body: JSON.stringify(actorName),
-      headers:{'Content-Type': 'application/json'}
+      headers:{'Content-Type': 'application/json', "Authorization": token}
     })
     .then(res => res.json())
     .then(actor => {
@@ -157,7 +159,7 @@ class FaceCapture extends React.Component {
         <>
         <Message color='teal'>
         <Message.Header>
-        ShaBang! We found a likely match.
+        ShaBang! We found a likely match ({Math.round(topMatchValue * 100)}% Match).
         </Message.Header>
         </Message>
         <ActorCard actor={this.state.foundActor}/>

@@ -1,6 +1,7 @@
 const initialState = {
   currentUser: null,
   selectedActor: null,
+  allActors: []
 }
 
 function reducer(state = initialState, action){
@@ -8,8 +9,6 @@ function reducer(state = initialState, action){
   switch(action.type){
     case "SET_USER":
       return {...state, currentUser: action.payload}
-    case "SET_ACTOR":
-      return {...state, currentActor: action.payload}
     default:
       return state
   }
