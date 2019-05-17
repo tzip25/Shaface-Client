@@ -2,10 +2,13 @@ import React from 'react';
 import { Button, Input, Divider, Message } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
 import Loading from '../components/Loading'
+import { connect } from 'react-redux'
+
 const Clarifai = require('clarifai');
 const app = new Clarifai.App({apiKey: '9bd2155eae344e3799387f96f70ac318'});
-const APP_URL = "http://localhost:3000"
+const APP_URL = "http://bfa47feb.ngrok.io"
 let topMatchValue = ""
+
 
 class FaceCapture extends React.Component {
 
@@ -90,6 +93,25 @@ class FaceCapture extends React.Component {
         this.setState({
           loading: false,
           foundActor: actor
+        }, () => {
+          // refetch current user after finding actor because new association was created
+          const token = localStorage.getItem("token")
+      		if (token){
+      			fetch(`${APP_URL}/auto_login`, {
+      				headers: {
+      					"Authorization": token
+      				}
+      			})
+      			.then(res => res.json())
+      			.then((response) => {
+      				if (response.errors) {
+      					return null
+      				} else {
+      					this.props.setUser(response)
+      				}
+      			})
+      		}
+
         })
     })
   }
@@ -174,4 +196,14 @@ class FaceCapture extends React.Component {
   }
 }
 
-export default FaceCapture
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setUser: (currentUser) => {
+      dispatch({type: "SET_USER", payload: currentUser})
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(FaceCapture);

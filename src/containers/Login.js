@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, Message } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
-const APP_URL = "http://localhost:3000"
+const APP_URL = "http://bfa47feb.ngrok.io"
 
 class Login extends React.Component {
 

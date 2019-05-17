@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Input, Form } from 'semantic-ui-react'
+import { Button, Input, Form, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-const APP_URL = "http://localhost:3000"
+const APP_URL = "http://bfa47feb.ngrok.io"
 
 
 class UserInfo extends React.Component {
@@ -56,49 +56,60 @@ class UserInfo extends React.Component {
   render(){
       if(this.state.edit === false){
         return(
-          <div >
-            <h1 className="actorNameCaps">{this.props.currentUser.first_name} {this.props.currentUser.last_name}</h1>
-            <p><b>Username:</b> {this.props.currentUser.username}</p>
-            <p><b>Email:</b> {this.props.currentUser.email}</p>
+          <Segment className="profileDetailsSegment">
+            <span className="profileDetails">
+              <h1 className="actorNameCaps">{this.props.currentUser.first_name} {this.props.currentUser.last_name}</h1>
+            </span>
+            <span className="profileDetails">
+              <b>Username:</b> {this.props.currentUser.username}
+            </span>
+            <span className="profileDetails">
+              <b>Email:</b> {this.props.currentUser.email}
+            </span>
+            <span className="profileDetails">
             <Button onClick={this.editProfile} compact >Edit Profile</Button>
-          </div>
+            </span>
+          </Segment>
       )
     } else if(this.state.edit) {
         return (
             <Form onSubmit={this.updateUserInfo} >
-              <b>First Name:</b>
-              <br/>
+              <span className="profileDetails">
+              <b>First Name:</b><br/>
               <Input
                 value={this.state.first_name}
                 name="first_name"
                 onChange={this.handleChange}
               />
-              <br/>
-              <b>Last Name:</b>
-              <br/>
+              </span>
+              <span className="profileDetails">
+              <b>Last Name:</b><br/>
               <Input
                 value={this.state.last_name}
                 name="last_name"
                 onChange={this.handleChange}
               />
-              <br/>
-              <b>Username:</b>
-              <br/>
+              </span>
+              <span className="profileDetails">
+              <b>Username:</b><br/>
               <Input
                 value={this.state.username}
                 name="username"
                 onChange={this.handleChange}
               />
-              <br/>
-              <b>Email:</b>
-              <br/>
+              </span>
+              <span className="profileDetails">
+              <b>Email:</b><br/>
               <Input
                 value={this.state.email}
                 name="email"
                 onChange={this.handleChange}
               />
-            <br/><br/>
+            </span>
+            <span className="profileDetails">
+            <br/>
             <Button compact >Save</Button>
+            </span>
             </Form>
         )
       } else {

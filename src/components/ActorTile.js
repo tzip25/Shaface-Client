@@ -16,8 +16,8 @@ const ActorTile = ( { actor} ) => {
 
 
   return (
-    <div className="actorTileSegment" >
-    <Segment className="actorTileSegment">
+    <div className="actorTileDiv" >
+    <Segment className="actorTileDiv">
       <img src={actor.img_url} className="tileImage" alt="actor tile"/>
       <div>
       <span className="actorTileName">

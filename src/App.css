@@ -28,11 +28,23 @@
 }
 
 .profileInfo {
-  padding: 20px 40px 20px 0;
+  padding: 20px 0px 20px 0;
+  vertical-align: bottom;
+}
+
+.profileDetailsSegment {
+  vertical-align: middle;
+  float: left;
+}
+
+.profileDetails {
+  float: left;
+  padding: 5px 10px 5px 10px;
 }
 
 .RecentSearchText {
-  color: #65276E;
+  font-size: 1.5em;
+  color: gray;
 }
 
 .searchPageDiv {
@@ -93,12 +105,14 @@
 }
 
 .actorTileDiv {
-  margin: 25px 0 5px 0;
+  float: left;
+  margin: 10px 10px 10px 0;
 }
 
 .actorTileSegment {
+  margin: auto;
+  width: 100%;
   float: left;
-  margin: 10px 10px 10px 0;
 }
 
 .actorTileName {
