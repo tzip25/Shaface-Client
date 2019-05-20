@@ -2,8 +2,7 @@ import React from 'react';
 import { Button, Form, Message } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-
-const APP_URL = "http://localhost:3000"
+import adapter from '../adapter'
 
 class Signup extends React.Component {
 
@@ -17,29 +16,20 @@ class Signup extends React.Component {
     errors: null
   }
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
+  handleChange = (e) => { this.setState({ [e.target.name]: e.target.value }) }
 
   createUser = (e) => {
     e.preventDefault()
     if (this.state.password === this.state.passwordConfirm) {
-      fetch(`${APP_URL}/signup`, {
-        method: 'POST',
-        body: JSON.stringify(this.state),
-        headers:{'Content-Type': 'application/json'}
-      })
-      .then(res => res.json())
-      .then((response) => {
-        if (response.errors){
+      adapter.createUser(this.state)
+      .then((res) => {
+        if (res.errors){
           this.setState({
-            errors: response.errors
+            errors: res.errors
           })
         } else {
-          localStorage.setItem("token", response.token)
-          this.props.setUser(response.user)
+          localStorage.setItem("token", res.token)
+          this.props.setUser(res.user)
           this.props.history.push("/profile")
         }
       })

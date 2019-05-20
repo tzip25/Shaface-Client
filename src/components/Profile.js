@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 
 class Profile extends React.Component {
 
-
   renderActorTiles = () => {
     return this.props.currentUser.actors.map(actor => <ActorTile key={actor.id} actor={actor}/>)
   }
@@ -23,7 +22,7 @@ class Profile extends React.Component {
         <div className="newSearchButton">
           <Button
             content='Find a New Face'
-            color="teal"
+            color="yellow"
             onClick={()=> this.props.history.push('/home') }
             />
         </div>
