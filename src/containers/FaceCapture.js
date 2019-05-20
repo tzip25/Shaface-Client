@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 const Clarifai = require('clarifai');
 const app = new Clarifai.App({apiKey: '9bd2155eae344e3799387f96f70ac318'});
-const APP_URL = "http://localhost:3000"
+const APP_URL = "http://f9421873.ngrok.io"
 let topMatchValue = ""
 
 

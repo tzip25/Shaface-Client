@@ -136,13 +136,50 @@
 .SplashPageButton {
   display: grid;
   grid-row: auto;
+  width: 220px;
   padding-bottom: 10px;
 }
 
+.fadeIn2 {
+  -webkit-animation: fadeIn 0.2s both ease-in;
+  animation: fadeIn 0.2s both ease-in;
+  animation-delay: 1.5s;
+}
+
+@keyframes fadeIn2 {
+  0% {
+    opacity: 0;
+  }
+   100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn3 {
+  -webkit-animation: fadeIn 0.2s both ease-in;
+  animation: fadeIn 0.2s both ease-in;
+  animation-delay: 2s;
+}
+
+@keyframes fadeIn3 {
+  0% {
+    opacity: 0;
+  }
+   100% {
+    opacity: 1;
+  }
+}
+
 .App-logo {
+  margin-top: -100px;
+  margin-bottom: 10px;
   width: 30vh;
 	-webkit-animation: roll-in-left 2s ease-out both;
 	animation: roll-in-left 2s ease-out both;
+}
+
+.logoText {
+  margin-bottom: 20px;
 }
 
 .h1HeaderText {
