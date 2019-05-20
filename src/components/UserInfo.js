@@ -3,7 +3,7 @@ import { Button, Input, Form, Segment, Modal, Header } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const APP_URL = "http://localhost:3000"
+const APP_URL = "http://f9421873.ngrok.io"
 
 
 class UserInfo extends React.Component {
@@ -89,8 +89,8 @@ class UserInfo extends React.Component {
                     <Header><p>Are you sure you want to delete your account?</p></Header>
                   </Modal.Content>
                 <Modal.Actions>
-                <Button color="teal" onClick={this.closeModal} >No! Go Back</Button>
-                <Button negative onClick={this.deleteProfile} >Yes. Delete Account</Button>
+                <Button color="teal" onClick={this.closeModal} >Go Back</Button>
+                <Button negative onClick={this.deleteProfile} >Delete Account</Button>
                 </Modal.Actions>
               </Modal>
             </span>

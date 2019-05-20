@@ -18,9 +18,9 @@ function SplashPage(props) {
     <div className="App">
       <header className="SplashPage">
         <img className="App-logo" src={'/Shaface-Logo.png'} alt="logo" />
-        <p className="logoText">ShaFace</p>
+        <p className="logoText fadeIn2">ShaFace</p>
         <div>
-        <span className="SplashPageButton">
+        <span className="SplashPageButton fadeIn3">
           <Button
             inverted
             content='Find a Face'
@@ -35,7 +35,7 @@ function SplashPage(props) {
           ?
           null
           :
-          <span className="SplashPageButton">
+          <span className="SplashPageButton fadeIn3">
             <Button
               inverted
               content='Login / Sign Up'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-const url = "http://localhost:3000"
+const url = "http://f9421873.ngrok.io"
 
 function withAuth(MyComponent){
 
