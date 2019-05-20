@@ -8,6 +8,8 @@ class Nav extends React.Component {
   menuClass = (path) => window.location.pathname === path ? "activeNav" : null
 
   render(){
+    const token = localStorage.getItem("token")
+
       return(
         <div className="nav">
           <input type="checkbox" id="nav-check"/>
@@ -27,7 +29,7 @@ class Nav extends React.Component {
           <div className="nav-links">
 
           {
-            this.props.currentUser
+            token
           ?
             <Link to="/login">
               <div onClick={this.props.logOut}>
@@ -43,7 +45,7 @@ class Nav extends React.Component {
           }
 
           {
-            this.props.currentUser
+            token
             ?
             <Link to="/profile">
               <span className={this.menuClass('/profile')}>

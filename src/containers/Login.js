@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Form, Message } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import adapter from '../adapter'
 
-const APP_URL = "http://localhost:3000"
 
 class Login extends React.Component {
 
@@ -12,30 +12,17 @@ class Login extends React.Component {
     errors: null,
   }
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
+  handleChange = (e) => { this.setState({ [e.target.name]: e.target.value }) }
 
   login = (e) => {
     e.preventDefault()
-    fetch(`${APP_URL}/login`, {
-      method: 'POST',
-      body: JSON.stringify(this.state),
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then((response) => {
-      if (response.errors){
-        this.setState({
-          errors: response.errors
-        })
+    adapter.login(this.state)
+    .then((res) => {
+      if (res.errors){
+        this.setState({ errors: res.errors })
       } else {
-        localStorage.setItem("token", response.token)
-        this.props.setUser(response.user)
+        localStorage.setItem("token", res.token)
+        this.props.setUser(res.user)
         this.props.history.push('/profile')
       }
     })

@@ -2,54 +2,38 @@ import React from 'react'
 import { Segment, Button } from 'semantic-ui-react'
 import ActorModal from '../components/ActorModal'
 import { connect } from 'react-redux'
+import adapter from '../adapter'
 
-const APP_URL = "http://localhost:3000"
 
 const ActorTile = ( props ) => {
 
+  const { actor } = props
+
   const deleteActor = () => {
     const token = localStorage.getItem("token")
-    fetch(`${APP_URL}/useractor/${props.actor.id}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json', "Authorization": token }
-    })
-    .then(response => response.json())
-    .then(response => {
-      props.setUser(response)
-    })
+    adapter.deleteActor(actor.id, token)
+    .then(res => { props.setUser(res) })
   }
-
-  const modalButton = () => {
-    return (
-      <Button
-        color="yellow"
-        icon='info'
-        compact
-      />
-    )
-  }
-
 
   return (
     <div className="actorTileDiv" >
     <Segment className="actorTileDiv">
       <span >
-        <a className="actorTileDelete" href="/profile" onClick={deleteActor} > Delete</a>
+        <button className="tileDelete" onClick={deleteActor}>Delete</button>
       </span>
-      <img src={props.actor.img_url} className="tileImage" alt="actor tile"/>
+      <img src={actor.img_url} className="tileImage" alt="actor tile"/>
       <div>
       <span className="actorTileName">
-      {props.actor.name}
+        {actor.name}
       </span>
       <span className="actorTileInfoButton">
-      <ActorModal actor={props.actor} button={modalButton()}/>
+        <ActorModal actor={actor} button={<Button color="yellow" icon='info' compact/>} />
       </span>
       </div>
     </Segment>
     </div>
   )
 }
-
 
 function mapDispatchToProps(dispatch) {
   return {

@@ -128,9 +128,9 @@
   text-transform: capitalize;
 }
 
-.actorTileDelete {
+.tileDelete {
   float: right;
-  color: #CF111E;
+  color: gray;
 }
 
 .actorTileInfoButton {
@@ -158,9 +158,9 @@
 }
 
 .fadeIn2 {
-  -webkit-animation: fadeIn 0.2s both ease-in;
-  animation: fadeIn 0.2s both ease-in;
-  animation-delay: 1.5s;
+  -webkit-animation: fadeIn 0.4s both ease-in;
+  animation: fadeIn 0.4s both ease-in;
+  animation-delay: 1s;
 }
 
 @keyframes fadeIn2 {
@@ -173,9 +173,9 @@
 }
 
 .fadeIn3 {
-  -webkit-animation: fadeIn 0.2s both ease-in;
-  animation: fadeIn 0.2s both ease-in;
-  animation-delay: 2s;
+  -webkit-animation: fadeIn 0.4s both ease-in;
+  animation: fadeIn 0.4s both ease-in;
+  animation-delay: 1.5s;
 }
 
 @keyframes fadeIn3 {
@@ -218,7 +218,7 @@
   position: fixed;
   z-index: 999;
   overflow: visible;
-  margin: 50px;
+  margin-top: 100px;
   top: 0;
   left: 0;
   bottom: 0;

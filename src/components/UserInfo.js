@@ -2,8 +2,7 @@ import React from 'react';
 import { Button, Input, Form, Segment, Modal, Header } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-
-const APP_URL = "http://localhost:3000"
+import adapter from '../adapter'
 
 
 class UserInfo extends React.Component {
@@ -32,12 +31,8 @@ class UserInfo extends React.Component {
   }
 
   deleteProfile = () => {
-    fetch(`${APP_URL}/users/${this.props.currentUser.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    const token = localStorage.getItem("token")
+    adapter.deleteProfile(token)
     .then(res => {
       localStorage.removeItem("token")
       this.props.setUser(null)
@@ -45,21 +40,11 @@ class UserInfo extends React.Component {
     })
   }
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
+  handleChange = (e) => { this.setState({ [e.target.name]: e.target.value }) }
 
   updateUserInfo = () => {
     const token = localStorage.getItem("token")
-
-    fetch(`${APP_URL}/edituser`, {
-      method: 'POST',
-      body: JSON.stringify(this.state),
-      headers:{'Content-Type': 'application/json', "Authorization": token}
-    })
-    .then(res => res.json())
+    adapter.updateUser(this.state, token)
     .then(user => {
       this.props.setUser(user)
       this.setState({
@@ -133,7 +118,7 @@ class UserInfo extends React.Component {
             </span>
             <span className="profileDetails">
             <br/>
-            <Button basic color="teal" >Save</Button>
+            <Button color="teal" >Save</Button>
             </span>
             </Form>
         )

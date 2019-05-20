@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-const url = "http://localhost:3000"
+import adapter from '../adapter'
 
 function withAuth(MyComponent){
 
@@ -11,17 +11,12 @@ function withAuth(MyComponent){
         const token = localStorage.getItem("token")
 
     		if (!this.props.currentUser && token){
-    			fetch(`${url}/auto_login`, {
-    				headers: {
-    					"Authorization": token
-    				}
-    			})
-    			.then(res => res.json())
-    			.then((response) => {
-    				if (response.errors) {
+    			adapter.autoLogin(token)
+    			.then((res) => {
+    				if (res.errors) {
     					return null
     				} else {
-    					this.props.setUser(response)
+    					this.props.setUser(res)
     				}
     			})
           return null

@@ -3,12 +3,11 @@ import { Button, Input, Divider, Message } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
 import { connect } from 'react-redux'
 import Loading from '../components/Loading'
+import adapter from '../adapter'
 
 const Clarifai = require('clarifai');
 const app = new Clarifai.App({apiKey: '9bd2155eae344e3799387f96f70ac318'});
-const APP_URL = "http://localhost:3000"
 let topMatchValue = ""
-
 
 class FaceCapture extends React.Component {
 
@@ -30,10 +29,7 @@ class FaceCapture extends React.Component {
   }
 
   fetchActorFromClarifai = () => {
-    this.setState({
-      loading: true,
-      foundActor: null,
-    }, () => {
+    this.setState({ loading: true, foundActor: null }, () => {
       app.models.predict("e466caa0619f444ab97497640cefc4dc", this.state.imgUrl ? this.state.imgUrl : {base64: this.state.clarifaiBase64})
         .then(response => {
           topMatchValue = response['outputs'][0]['data']['regions'][0]['data']['face']['identity']['concepts'][0]['value']
@@ -43,10 +39,7 @@ class FaceCapture extends React.Component {
           ?
           this.fetchActorFromBackend({name: actorName})
           :
-          this.setState({
-            noMatchFound: true,
-            loading: false
-          })
+          this.setState({ noMatchFound: true, loading: false })
         },
         function(err) {
             alert("There was an error reading your image. Please try another photo.")
@@ -77,12 +70,7 @@ class FaceCapture extends React.Component {
 
   fetchActorFromBackend = (actorName) => {
     const token = localStorage.getItem("token")
-    fetch(`${APP_URL}/actors`, {
-      method: 'POST',
-      body: JSON.stringify(actorName),
-      headers:{'Content-Type': 'application/json', "Authorization": token}
-    })
-    .then(res => res.json())
+    adapter.searchActor(actorName, token)
     .then(actor => {
       actor[0] === "no actor found"
       ?
@@ -92,27 +80,18 @@ class FaceCapture extends React.Component {
         })
       :
         this.setState({
+          clarifaiBase64: "",
+          imgPath: "",
+          imgUrl: null,
+          noMatchFound: null,
+          foundActor: actor,
           loading: false,
-          foundActor: actor
         }, () => {
           // refetch current user after finding actor because new association was created
-          const token = localStorage.getItem("token")
-      		if (token){
-      			fetch(`${APP_URL}/auto_login`, {
-      				headers: {
-      					"Authorization": token
-      				}
-      			})
-      			.then(res => res.json())
-      			.then((response) => {
-      				if (response.errors) {
-      					return null
-      				} else {
-      					this.props.setUser(response)
-      				}
-      			})
+          if (token){
+            adapter.autoLogin(token)
+      			.then((res) => res.errors ? null : this.props.setUser(res) )
       		}
-
         })
     })
   }
@@ -174,7 +153,6 @@ class FaceCapture extends React.Component {
           null
         }
       </div>
-
       <div className="actorCard">
       {
         this.state.foundActor
@@ -192,12 +170,9 @@ class FaceCapture extends React.Component {
       }
       </div>
     </div>
-
     )
   }
 }
-
-
 
 function mapDispatchToProps(dispatch) {
   return {

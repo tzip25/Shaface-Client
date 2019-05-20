@@ -7,8 +7,8 @@ import LoginContainer from './components/LoginContainer'
 import Profile from './components/Profile'
 import SplashPage from './components/SplashPage'
 import { connect } from 'react-redux'
+import adapter from './adapter'
 
-const APP_URL = "http://localhost:3000"
 
 class App extends React.Component {
 
@@ -32,19 +32,13 @@ class App extends React.Component {
 
   componentDidMount(){
 		const token = localStorage.getItem("token")
-
 		if (token){
-			fetch(`${APP_URL}/auto_login`, {
-				headers: {
-					"Authorization": token
-				}
-			})
-			.then(res => res.json())
-			.then((response) => {
-				if (response.errors) {
+			adapter.autoLogin(token)
+			.then((res) => {
+				if (res.errors) {
 					return null
 				} else {
-					this.props.setUser(response)
+					this.props.setUser(res)
 				}
 			})
 		}
