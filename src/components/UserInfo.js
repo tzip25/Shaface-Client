@@ -3,7 +3,7 @@ import { Button, Input, Form, Segment, Modal, Header } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const APP_URL = "http://f9421873.ngrok.io"
+const APP_URL = "http://localhost:3000"
 
 
 class UserInfo extends React.Component {
@@ -72,8 +72,8 @@ class UserInfo extends React.Component {
       if(this.state.edit === false){
         return(
           <Segment className="profileDetailsSegment">
-            <span className="profileDetails">
-              <h1 className="actorNameCaps">{this.props.currentUser.first_name} {this.props.currentUser.last_name}</h1>
+            <span className="profileName profileDetails">
+              {this.props.currentUser.first_name} {this.props.currentUser.last_name}
             </span>
             <span className="profileDetails">
               <b>Username:</b> {this.props.currentUser.username}
@@ -81,7 +81,7 @@ class UserInfo extends React.Component {
             <span className="profileDetails">
               <b>Email:</b> {this.props.currentUser.email}
             </span>
-            <span className="profileDetails">
+            <span>
             <Button compact basic color="teal" onClick={this.editProfile} >Edit Profile</Button>
             <Button compact basic negative onClick={this.openModal}>Delete Account</Button>
               <Modal open={this.state.open} size="tiny">
