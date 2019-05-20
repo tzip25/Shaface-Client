@@ -8,7 +8,7 @@ import Profile from './components/Profile'
 import SplashPage from './components/SplashPage'
 import { connect } from 'react-redux'
 
-const APP_URL = "http://f9421873.ngrok.io"
+const APP_URL = "http://localhost:3000"
 
 class App extends React.Component {
 
@@ -56,7 +56,7 @@ class App extends React.Component {
       <div className="App">
         <div className="AppBody">
           <Nav logOut={this.logOut}/>
-          {this.renderPage()}
+          { this.renderPage() }
         </div>
       </div>
     )
@@ -69,10 +69,8 @@ function mapDispatchToProps(dispatch) {
     setUser: (currentUser) => {
       // dispatch is our new setState and it takes an object with a type and a payload
       dispatch({type: "SET_USER", payload: currentUser})
-    },
-    setUserActors: (userActors) => {
-      dispatch({type: "GET_USER_ACTORS", payload: userActors})
     }
   }
 }
+
 export default connect(null, mapDispatchToProps)(withRouter(App));

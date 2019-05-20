@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button, Input, Divider, Message } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
-import Loading from '../components/Loading'
 import { connect } from 'react-redux'
+import Loading from '../components/Loading'
 
 const Clarifai = require('clarifai');
 const app = new Clarifai.App({apiKey: '9bd2155eae344e3799387f96f70ac318'});
-const APP_URL = "http://f9421873.ngrok.io"
+const APP_URL = "http://localhost:3000"
 let topMatchValue = ""
 
 
@@ -31,7 +31,8 @@ class FaceCapture extends React.Component {
 
   fetchActorFromClarifai = () => {
     this.setState({
-      loading: true
+      loading: true,
+      foundActor: null,
     }, () => {
       app.models.predict("e466caa0619f444ab97497640cefc4dc", this.state.imgUrl ? this.state.imgUrl : {base64: this.state.clarifaiBase64})
         .then(response => {
@@ -121,6 +122,7 @@ class FaceCapture extends React.Component {
   render(){
     return(
       <div className="searchPageDiv">
+      { this.state.loading ? <Loading/> : null }
       <div className="searchForm">
         <h1 className="h1HeaderText">Find a New Face</h1>
         <Input
@@ -174,14 +176,13 @@ class FaceCapture extends React.Component {
       </div>
 
       <div className="actorCard">
-      { this.state.loading ? <Loading/> : null }
       {
         this.state.foundActor
         ?
         <>
         <Message color='teal'>
         <Message.Header>
-        ShaBang! We found a likely match ({Math.round(topMatchValue * 100)}% Match).
+          ShaBang! We found a likely match ({Math.round(topMatchValue * 100)}% Match).
         </Message.Header>
         </Message>
         <ActorCard actor={this.state.foundActor}/>
