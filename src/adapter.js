@@ -1,5 +1,5 @@
-// const APP_URL = "https://wwn-backend.herokuapp.com/api/v1"
-const APP_URL = "http://localhost:3000"
+const APP_URL = "http://e09537f9.ngrok.io"
+// const APP_URL = "http://localhost:3000"
 
 const adapter = {
 
@@ -52,6 +52,12 @@ const adapter = {
     return fetch(`${APP_URL}/useractor/${actorId}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json', "Authorization": token }
+    }).then(res => res.json())
+  },
+
+  getShabaconized: (token) => {
+    return fetch(`${APP_URL}/movies`, {
+      headers: { "Authorization": token }
     }).then(res => res.json())
   },
 

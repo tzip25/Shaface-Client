@@ -49,22 +49,23 @@ class FaceCapture extends React.Component {
   }
 
   fileUpload = (e) => {
-    const file = e.target.files[0]
-    const fileType = file.type.split('/')[1]
-    const reader = new FileReader();
 
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      const clarifaiBase64 = reader.result.split(`data:image/${fileType};base64,`)[1]
-      this.setState({
-        clarifaiBase64: clarifaiBase64,
-        imgPath: reader.result,
-        noMatchFound: null,
-        imgUrl: null,
-      })
-    };
-    reader.onerror = (error) => {
-      console.log('Error: ', error);
+    const file = e.target.files[0]
+
+    if (file){
+      const fileType = file.type.split('/')[1]
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        const clarifaiBase64 = reader.result.split(`data:image/${fileType};base64,`)[1]
+        this.setState({
+          clarifaiBase64: clarifaiBase64,
+          imgPath: reader.result,
+          noMatchFound: null,
+          imgUrl: null,
+        })
+      }
     }
   }
 
@@ -112,10 +113,11 @@ class FaceCapture extends React.Component {
         <br/>
         <Divider horizontal>Or</Divider>
         <Button
+          color="teal"
           className="searchFormButton"
-          content="Upload an image file"
+          content="Grab an Image"
           labelPosition="left"
-          icon="file"
+          icon="camera"
           onClick={() => this.fileInputRef.current.click()}
         />
         <input
@@ -125,14 +127,15 @@ class FaceCapture extends React.Component {
           onChange={this.fileUpload}
         />
         <br/>
+
         {
           this.state.imgPath.length ?
           <>
-          <img src={this.state.imgPath} alt="img preview" className="imgPrev"/>
+          <img src={this.state.imgPath} alt="img preview" className="imgPrev" />
           <Button
             color="teal"
             className="searchFormButton"
-            content="Find My Face"
+            content="Find That Face"
             type='submit'
             onClick={this.fetchActorFromClarifai}
           />

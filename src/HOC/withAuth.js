@@ -19,7 +19,7 @@ function withAuth(MyComponent){
     					this.props.setUser(res)
     				}
     			})
-          return null
+          return "Loading"
     		} else if (this.props.currentUser) {
           return <MyComponent {...this.props}/>
         } else {

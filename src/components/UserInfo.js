@@ -80,7 +80,7 @@ class UserInfo extends React.Component {
               </Modal>
             </span>
           </Segment>
-      )
+        )
     } else if(this.state.edit) {
         return (
             <Form onSubmit={this.updateUserInfo} >

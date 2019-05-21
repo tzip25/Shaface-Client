@@ -15,7 +15,12 @@ class Nav extends React.Component {
           <input type="checkbox" id="nav-check"/>
           <div className="nav-header">
 
-          <Link to="/"><div className="nav-title">ShaFace</div></Link>
+          <Link to="/">
+          <div className="nav-title">
+            <img className="navLogo" src={'/Shaface-Logo.png'} alt="logo" width="20px"/>
+            ShaFace
+          </div>
+          </Link>
 
           </div>
           <div className="nav-btn">
@@ -31,16 +36,16 @@ class Nav extends React.Component {
           {
             token
           ?
-            <Link to="/login">
-              <div onClick={this.props.logOut}>
-                Logout
-              </div>
+            <Link to="/">
+            <span onClick={this.props.logOut}>
+              Logout
+            </span>
             </Link>
           :
             <Link to="/login">
-              <span className={this.menuClass('/login')}>
-                Login
-              </span>
+            <span className={this.menuClass('/login')}>
+              Login
+            </span>
             </Link>
           }
 
@@ -48,19 +53,19 @@ class Nav extends React.Component {
             token
             ?
             <Link to="/profile">
-              <span className={this.menuClass('/profile')}>
-                Profile
-              </span>
+            <span className={this.menuClass('/profile')}>
+              Profile
+            </span>
             </Link>
             :
             null
           }
 
-          <Link to="/home">
+            <Link to="/home">
             <span className={this.menuClass('/home')}>
               Find a Face
             </span>
-          </Link>
+            </Link>
 
           </div>
         </div>
