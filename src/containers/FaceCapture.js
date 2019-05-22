@@ -55,7 +55,6 @@ class FaceCapture extends React.Component {
     if (file){
       const fileType = file.type.split('/')[1]
       const reader = new FileReader();
-
       reader.readAsDataURL(file)
       reader.onload = () => {
         const clarifaiBase64 = reader.result.split(`data:image/${fileType};base64,`)[1]
@@ -65,8 +64,44 @@ class FaceCapture extends React.Component {
           noMatchFound: null,
           imgUrl: null,
         })
+
       }
     }
+  }
+
+  rotateBase64Image90deg = (base64Image) => {
+      // create an off-screen canvas
+      var offScreenCanvas = document.createElement('canvas');
+      var offScreenCanvasCtx = offScreenCanvas.getContext('2d');
+
+      // cteate Image
+      var img = new Image();
+      img.src = base64Image;
+
+      // set its dimension to rotated size
+      offScreenCanvas.height = img.width;
+      offScreenCanvas.width = img.height;
+
+      // rotate and draw source image into the off-screen canvas:
+      offScreenCanvasCtx.rotate(Math.PI / 2);
+      offScreenCanvasCtx.translate(0, -offScreenCanvas.width);
+      offScreenCanvasCtx.drawImage(img, 0, 0);
+
+      const dataURL = offScreenCanvas.toDataURL("image/jpeg", 1);
+
+      const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
+      this.setState({
+        clarifaiBase64: clarifaiBase64,
+        imgPath: dataURL,
+        noMatchFound: null,
+        imgUrl: null,
+      })
+  }
+
+
+
+  rotate = () => {
+    this.rotateBase64Image90deg(this.state.imgPath)
   }
 
   fetchActorFromBackend = (actorName) => {
@@ -127,11 +162,11 @@ class FaceCapture extends React.Component {
           onChange={this.fileUpload}
         />
         <br/>
-
+        <span onClick={this.rotate}>Rotate</span>
         {
           this.state.imgPath.length ?
           <>
-          <img src={this.state.imgPath} alt="img preview" className="imgPrev" />
+          <img src={this.state.imgPath} alt="img preview" className="imgPrev" id="imgPrev" />
           <Button
             color="teal"
             className="searchFormButton"
