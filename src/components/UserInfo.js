@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input, Form, Segment, Modal, Header } from 'semantic-ui-react'
+import { Button, Input, Form, Segment, Modal, Header, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import adapter from '../adapter'
@@ -67,8 +67,8 @@ class UserInfo extends React.Component {
               <b>Email:</b> {this.props.currentUser.email}
             </span>
             <span>
-            <Button compact basic color="teal" onClick={this.editProfile} >Edit Profile</Button>
-            <Button compact basic negative onClick={this.openModal}>Delete Account</Button>
+            <Icon name="delete" link className="floatR" onClick={this.openModal} />
+            <Icon name="edit" link className="floatR" color="yellow" onClick={this.editProfile} />
               <Modal open={this.state.open} size="tiny">
                   <Modal.Content>
                     <Header><p>Are you sure you want to delete your account?</p></Header>

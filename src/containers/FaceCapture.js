@@ -113,7 +113,7 @@ class FaceCapture extends React.Component {
         <br/>
         <Divider horizontal>Or</Divider>
         <Button
-          color="teal"
+          color="black"
           className="searchFormButton"
           content="Grab an Image"
           labelPosition="left"
