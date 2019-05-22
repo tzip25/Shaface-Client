@@ -16,7 +16,7 @@ class Nav extends React.Component {
   className = () => this.state.navOpen ? "open" : "closed"
   closeNav = () => this.setState(prevState => ({navOpen: false}))
   logOut = () => {
-    this.setState(prevState => ({navOpen: false}))
+    this.closeNav()
     this.props.logOut()
 
   }
