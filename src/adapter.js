@@ -1,5 +1,5 @@
-// const APP_URL = "http://e09537f9.ngrok.io"
-const APP_URL = "http://localhost:3000"
+const APP_URL = "http://635bec58.ngrok.io"
+// const APP_URL = "http://localhost:3000"
 
 const adapter = {
 
