@@ -29,7 +29,7 @@
 
 .profileName {
   text-transform: capitalize;
-  font-size: 1.5em;
+  font-size: 1.7em;
   font-weight: bold;
 }
 
@@ -39,7 +39,12 @@
 
 .profileDetails {
   float: left;
-  margin: 5px 20px 5px 0px;
+  margin: 5px 35px 5px 0px;
+}
+
+.floatR {
+  padding: 5px 0px 5px 0px;
+  float: right;
 }
 
 .newSearchButton {
@@ -113,6 +118,35 @@
   clear: both;
 }
 
+.tileImage:hover{
+  cursor: pointer;
+  opacity: .9;
+}
+
+.logoLetter:hover {
+  cursor: default;
+  display:inline-block;
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
 .actorTileDiv {
   float: left;
   margin: 10px 10px 10px 0;
@@ -129,15 +163,11 @@
   text-transform: capitalize;
 }
 
-.tileDelete {
+.tileIcon {
   border: none;
   background: none;
   float: right;
-  color: #CF111E;
-}
-
-.actorTileInfoButton {
-  float: right;
+  padding-top: 6px;
 }
 
 .SplashPage {
@@ -204,7 +234,7 @@
 }
 
 .h1HeaderText {
-  color: #FFCE0C;
+  color: #000000;
 }
 
 .movieTitle{
@@ -341,6 +371,7 @@
 }
 
 .nav-links {
+  color: #ffffff;
   display: inline;
   float: right;
   font-size: 1em;

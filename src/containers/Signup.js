@@ -76,7 +76,7 @@ class Signup extends React.Component {
               <input name="passwordConfirm" type="password" onChange={this.handleChange} placeholder='Confirm Password' />
             </Form.Field>
           </Form.Group>
-        <Button type='submit'>Submit</Button>
+        <Button color="yellow" type='submit'>Submit</Button>
       </Form>
     </>
     )

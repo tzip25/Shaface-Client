@@ -36,16 +36,14 @@ class Nav extends React.Component {
           {
             token
           ?
-            <Link to="/">
-            <span onClick={this.props.logOut}>
+            <Link onClick={this.props.logOut} to="/">
               Logout
-            </span>
             </Link>
           :
             <Link to="/login">
-            <span className={this.menuClass('/login')}>
-              Login
-            </span>
+              <span className={this.menuClass('/login')} >
+                Login
+              </span>
             </Link>
           }
 
@@ -53,19 +51,18 @@ class Nav extends React.Component {
             token
             ?
             <Link to="/profile">
-            <span className={this.menuClass('/profile')}>
-              Profile
-            </span>
+              <span className={this.menuClass('/profile')} >
+                Profile
+              </span>
             </Link>
             :
             null
           }
-
-            <Link to="/home">
-            <span className={this.menuClass('/home')}>
-              Find a Face
+          <Link className={this.menuClass('/home')} to="/home">
+            <span className={this.menuClass('/home')} >
+            Find a Face
             </span>
-            </Link>
+          </Link>
 
           </div>
         </div>
