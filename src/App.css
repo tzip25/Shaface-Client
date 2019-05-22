@@ -344,7 +344,7 @@
 
 /* Website Top Navigation */
 .nav {
-  height: 45px;
+  height: 50px;
   width: 100%;
   background-color: #FFCE0C;
   position: relative;
@@ -363,24 +363,21 @@
 }
 
 .navLogo {
+  margin-top: 5px;
   margin-right: 5px;
-}
-
-.nav-btn {
-  display: none;
 }
 
 .nav-links {
   color: #ffffff;
   display: inline;
   float: right;
-  font-size: 1em;
+  font-size: 1.1em;
   font-weight: bold;
 }
 
 .nav > .nav-links > a {
   float: right;
-  padding: 10px 15px 10px 15px;
+  padding: 15px 15px 10px 15px;
   text-decoration: none;
   color: #ffffff;
 }
@@ -394,59 +391,34 @@
   font-weight: bold;
 }
 
-.nav > #nav-check {
+.nav > #nav-btn {
   display: none;
 }
 
 @media (max-width:600px) {
-  .nav > .nav-btn {
+  .nav > #nav-btn {
     display: inline-block;
     position: absolute;
-    right: 0px;
-    top: 0px;
-  }
-  .nav > .nav-btn > label {
-    display: inline-block;
-    width: 50px;
-    height: 45px;
-    padding: 12px;
-  }
-  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
-    background-color: rgba(0, 0, 0, 0);
-  }
-  .nav > .nav-btn > label > span {
-    display: block;
-    width: 25px;
-    height: 8px;
-    border-top: 3px solid #eee;
+    right: 10px;
+    top: 15px;
   }
   .nav > .nav-links {
     width: 100%;
     background-color: #32BEBD;
-    height: 0px;
-    transition: all 0.4s ease-in;
+    transition: all .3s ease-in;
     overflow-y: hidden;
-    top: 45px;
-    left: 0px;
   }
   .nav > .nav-links > a {
     display: block;
     width: 100%;
   }
-  .nav > #nav-check:not(:checked) ~ .nav-links {
+  .nav > #nav-btn,.closed ~ .nav-links {
     height: 0px;
   }
-  .nav > #nav-check:checked ~ .nav-links {
+  .nav > #nav-btn,.open ~ .nav-links {
     margin-top: 0px;
-    height: 20vh;
+    height: 100vh;
   }
-  /* .nav > #nav-closed ~ .nav-links {
-    height: 0px;
-  }
-  .nav > #nav-open ~ .nav-links {
-    margin-top: 0px;
-    height: 20vh;
-  } */
 }
 
  /* ----------------------------------------
