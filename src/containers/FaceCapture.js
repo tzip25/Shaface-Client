@@ -165,7 +165,6 @@ class FaceCapture extends React.Component {
                   className="imgRotate"
                   onClick={this.rotate}
                 />
-                { this.state.rotating ? <p>rotating</p> : null }
                 <img src={this.state.imgPath} alt="img preview" className="imgPrev" id="imgPrev" />
               </div>
               <Button
@@ -185,7 +184,7 @@ class FaceCapture extends React.Component {
           ?
           <Message negative>
             <Message.Header>
-              ShaDang. No likely matches found.
+              WhoDang. No likely matches found.
             </Message.Header>
           </Message>
           :
@@ -199,7 +198,7 @@ class FaceCapture extends React.Component {
         <>
         <Message color='teal'>
         <Message.Header>
-          ShaBang! We found a likely match. ({Math.round(topMatchValue * 100)}% match)
+          WhoDat! We found a likely match. ({Math.round(topMatchValue * 100)}% match)
         </Message.Header>
         </Message>
         <ActorCard actor={this.state.foundActor}/>

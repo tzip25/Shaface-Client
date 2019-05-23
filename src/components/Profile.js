@@ -37,8 +37,8 @@ class Profile extends React.Component {
               <Button
               className="newSearchButton"
               color="yellow"
-              onClick={() => this.props.history.push('/shabacon')}
-              content="ShaBaconize"
+              onClick={() => this.props.history.push('/baconize')}
+              content="Baconize"
             />}
           />
         </div>

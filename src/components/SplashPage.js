@@ -19,13 +19,12 @@ function SplashPage(props) {
       <header className="SplashPage">
         <img className="App-logo" src={'/Shaface-Logo3.png'} alt="logo" />
         <p className="logoText fadeIn2">
-        <span className="logoLetter">S</span>
+        <span className="logoLetter">W</span>
         <span className="logoLetter">h</span>
+        <span className="logoLetter">o</span>
+        <span className="logoLetter">D</span>
         <span className="logoLetter">a</span>
-        <span className="logoLetter">F</span>
-        <span className="logoLetter">a</span>
-        <span className="logoLetter">c</span>
-        <span className="logoLetter">e</span>
+        <span className="logoLetter">t</span>
         </p>
         <div>
         <span className="SplashPageButton fadeIn3">

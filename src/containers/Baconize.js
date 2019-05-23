@@ -4,7 +4,7 @@ import v4 from 'uuid'
 import adapter from '../adapter'
 import { withRouter } from 'react-router-dom'
 
-class Shabacon extends React.Component {
+class Baconize extends React.Component {
 
   state = {
     baconized: [],
@@ -16,7 +16,7 @@ class Shabacon extends React.Component {
       loading: true
     })
     const token = localStorage.getItem("token")
-    adapter.getShabaconized(token)
+    adapter.getBaconized(token)
     .then(movies => {
       this.setState({
         baconized: movies,
@@ -26,16 +26,20 @@ class Shabacon extends React.Component {
   }
 
   renderActors = () => {
-    return this.state.baconized.map(movie => {
-      return(
-        <div className="baconize" key={v4()}>
-          <Segment >
-            <h4>{movie.title}: {movie.year}</h4>
-            {movie.actors.map(actor => <div key={v4()} className="shabaconLabel"><Label basic image><img src={actor.img} alt="actor mini headshot"/>{actor.name}</Label></div>)}
-          </Segment>
-        </div>
-      )
-    })
+    if(this.state.baconized.length){
+      return this.state.baconized.map(movie => {
+        return(
+          <div className="baconize" key={v4()}>
+            <Segment >
+              <h4>{movie.title}: {movie.year}</h4>
+              {movie.actors.map(actor => <div key={v4()} className="baconLabel"><Label basic image><img src={actor.img} alt="actor mini headshot"/>{actor.name}</Label></div>)}
+            </Segment>
+          </div>
+        )
+      })
+    } else {
+      return <div className="baconize"><h3>Dang. No relationships found.</h3></div>
+    }
   }
 
   render(){
@@ -51,11 +55,10 @@ class Shabacon extends React.Component {
       </div>
       <Segment.Group compact className="actorTileSegment">
         <Segment secondary>
-          <h1 className="RecentSearchText">Six Degrees of ShaBacon</h1>
+          <h1 className="RecentSearchText">Some Degrees of Kevin Bacon</h1>
         </Segment>
         <Segment >
-        {this.state.loading ? <h1 className="pulsate math">Doing some ShaMazing math!</h1> : null}
-        {this.renderActors()}
+        {this.state.loading ? <h1 className="pulsate math">Doing some killer math!</h1> : this.renderActors()}
         </Segment >
       </Segment.Group >
       </div>
@@ -63,4 +66,4 @@ class Shabacon extends React.Component {
   }
 }
 
-export default withRouter(Shabacon)
+export default withRouter(Baconize)

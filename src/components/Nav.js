@@ -31,7 +31,7 @@ class Nav extends React.Component {
           <Link to="/">
           <div className="nav-title">
             <img className="navLogo" src={"/shaface.ico"} alt="logo" width="17px"/>
-            ShaFace
+            WhoDat
           </div>
           </Link>
           </div>

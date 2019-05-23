@@ -57,7 +57,7 @@ const adapter = {
     }).then(res => res.json())
   },
 
-  getShabaconized: (token) => {
+  getBaconized: (token) => {
     return fetch(`${APP_URL}/movies`, {
       headers: { "Authorization": token }
     }).then(res => res.json())
