@@ -240,7 +240,7 @@
 .App-logo {
   margin-top: -100px;
   margin-bottom: 10px;
-  width: 30vh;
+  width: 200px;
 	-webkit-animation: roll-in-left 2s ease-out both;
 	animation: roll-in-left 2s ease-out both;
 }

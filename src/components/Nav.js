@@ -30,7 +30,7 @@ class Nav extends React.Component {
           <div className="nav-header">
           <Link to="/">
           <div className="nav-title">
-            <img className="navLogo" src={'/Shaface-Logo.png'} alt="logo" width="17px"/>
+            <img className="navLogo" src={"/shaface.ico"} alt="logo" width="17px"/>
             ShaFace
           </div>
           </Link>
