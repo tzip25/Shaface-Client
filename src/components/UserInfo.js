@@ -56,7 +56,7 @@ class UserInfo extends React.Component {
   render(){
       if(this.state.edit === false){
         return(
-          <Segment className="profileDetailsSegment">
+          <>
             <span className="profileName profileDetails">
               {this.props.currentUser.first_name} {this.props.currentUser.last_name}
             </span>
@@ -67,8 +67,10 @@ class UserInfo extends React.Component {
               <b>Email:</b> {this.props.currentUser.email}
             </span>
             <span>
-            <Icon name="delete" link className="floatR" onClick={this.openModal} />
-            <Icon name="edit" link className="floatR" color="yellow" onClick={this.editProfile} />
+            <div className="floatR" >
+              <Icon name="edit" link color="yellow" onClick={this.editProfile} />
+              <Icon name="delete" link onClick={this.openModal} />
+            </div>
               <Modal open={this.state.open} size="tiny">
                   <Modal.Content>
                     <Header><p>Are you sure you want to delete your account?</p></Header>
@@ -79,7 +81,7 @@ class UserInfo extends React.Component {
                 </Modal.Actions>
               </Modal>
             </span>
-          </Segment>
+          </>
         )
     } else if(this.state.edit) {
         return (

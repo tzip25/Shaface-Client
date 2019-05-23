@@ -2,6 +2,7 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import adapter from '../adapter'
+import Loading from '../components/Loading'
 
 function withAuth(MyComponent){
 
@@ -19,7 +20,7 @@ function withAuth(MyComponent){
     					this.props.setUser(res)
     				}
     			})
-          return "Loading"
+          return <Loading/>
     		} else if (this.props.currentUser) {
           return <MyComponent {...this.props}/>
         } else {
