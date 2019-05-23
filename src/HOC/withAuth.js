@@ -2,7 +2,7 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import adapter from '../adapter'
-import Loading from '../components/Loading'
+import LoadingMini from '../components/LoadingMini'
 
 function withAuth(MyComponent){
 
@@ -20,7 +20,7 @@ function withAuth(MyComponent){
     					this.props.setUser(res)
     				}
     			})
-          return <Loading/>
+          return <LoadingMini/> 
     		} else if (this.props.currentUser) {
           return <MyComponent {...this.props}/>
         } else {

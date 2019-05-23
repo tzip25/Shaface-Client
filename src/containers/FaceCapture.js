@@ -169,7 +169,7 @@ class FaceCapture extends React.Component {
                 <img src={this.state.imgPath} alt="img preview" className="imgPrev" id="imgPrev" />
               </div>
               <Button
-                color="teal"
+                color="yellow"
                 className="searchFormButton"
                 content="Find That Face"
                 type='submit'

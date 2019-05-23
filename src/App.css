@@ -329,8 +329,16 @@
 
 .math {
   text-align: center;
-  padding: 10px;
+  padding: 40px;
   color: #FFCE0C;
+  font-size: 30px;
+}
+
+.loadText {
+  text-align: center;
+  padding: 40px 40px 0px 40px;
+  color: #000000;
+  font-size: 40px;
 }
 
 .loadingText {

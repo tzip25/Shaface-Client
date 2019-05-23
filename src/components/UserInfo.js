@@ -76,7 +76,7 @@ class UserInfo extends React.Component {
                     <Header><p>Are you sure you want to delete your account?</p></Header>
                   </Modal.Content>
                 <Modal.Actions>
-                <Button color="teal" onClick={this.closeModal} >Go Back</Button>
+                <Button color="black" onClick={this.closeModal} >Go Back</Button>
                 <Button negative onClick={this.deleteProfile} >Delete Account</Button>
                 </Modal.Actions>
               </Modal>
@@ -121,7 +121,7 @@ class UserInfo extends React.Component {
             </span>
             <span className="profileDetails">
             <br/>
-            <Button color="teal" >Save</Button>
+            <Button color="black" >Save</Button>
             </span>
             </Form>
             </Segment>

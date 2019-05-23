@@ -54,7 +54,7 @@ class Shabacon extends React.Component {
           <h1 className="RecentSearchText">Six Degrees of ShaBacon</h1>
         </Segment>
         <Segment >
-        {this.state.loading ? <h1 className="pulsate math">Doing some killer math!</h1> : null}
+        {this.state.loading ? <h1 className="pulsate math">Doing some ShaMazing math!</h1> : null}
         {this.renderActors()}
         </Segment >
       </Segment.Group >

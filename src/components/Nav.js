@@ -48,7 +48,7 @@ class Nav extends React.Component {
           :
             <Link onClick={this.closeNav} to="/login">
               <span className={this.linkClass('/login')} >
-                Login
+                Login / Sign Up
               </span>
             </Link>
           }
