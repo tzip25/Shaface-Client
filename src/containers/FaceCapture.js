@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input, Divider, Message } from 'semantic-ui-react'
+import { Button, Input, Divider, Message, Icon } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
 import { connect } from 'react-redux'
 import Loading from '../components/Loading'
@@ -69,39 +69,30 @@ class FaceCapture extends React.Component {
     }
   }
 
-  rotateBase64Image90deg = (base64Image) => {
-      // create an off-screen canvas
-      var offScreenCanvas = document.createElement('canvas');
-      var offScreenCanvasCtx = offScreenCanvas.getContext('2d');
-
-      // cteate Image
-      var img = new Image();
-      img.src = base64Image;
-
-      // set its dimension to rotated size
-      offScreenCanvas.height = img.width;
-      offScreenCanvas.width = img.height;
-
-      // rotate and draw source image into the off-screen canvas:
-      offScreenCanvasCtx.rotate(Math.PI / 2);
-      offScreenCanvasCtx.translate(0, -offScreenCanvas.width);
-      offScreenCanvasCtx.drawImage(img, 0, 0);
-
-      const dataURL = offScreenCanvas.toDataURL("image/jpeg", 1);
-
-      const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
-      this.setState({
-        clarifaiBase64: clarifaiBase64,
-        imgPath: dataURL,
-        noMatchFound: null,
-        imgUrl: null,
-      })
-  }
-
-
-
   rotate = () => {
-    this.rotateBase64Image90deg(this.state.imgPath)
+    // create an off-screen canvas
+    var offScreenCanvas = document.createElement('canvas');
+    var offScreenCanvasCtx = offScreenCanvas.getContext('2d');
+    // cteate Image
+    var img = new Image();
+    img.src = this.state.imgPath;
+    // set its dimension to rotated size
+    offScreenCanvas.height = img.width;
+    offScreenCanvas.width = img.height;
+    // rotate and draw source image into the off-screen canvas:
+    offScreenCanvasCtx.rotate(Math.PI / 2);
+    offScreenCanvasCtx.translate(0, -offScreenCanvas.width);
+    offScreenCanvasCtx.drawImage(img, 0, 0);
+
+    const dataURL = offScreenCanvas.toDataURL("image/jpeg", 1);
+    const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
+
+    this.setState({
+      clarifaiBase64: clarifaiBase64,
+      imgPath: dataURL,
+      noMatchFound: null,
+      imgUrl: null,
+    })
   }
 
   fetchActorFromBackend = (actorName) => {
@@ -145,7 +136,6 @@ class FaceCapture extends React.Component {
           name="imgUrl"
           placeholder="Enter an image url"
           onChange={this.handleURLChange}/>
-        <br/>
         <Divider horizontal>Or</Divider>
         <Button
           color="black"
@@ -160,21 +150,32 @@ class FaceCapture extends React.Component {
           type="file"
           hidden
           onChange={this.fileUpload}
+          className="searchFormButton"
         />
         <br/>
-        <span onClick={this.rotate}>Rotate</span>
         {
           this.state.imgPath.length ?
-          <>
-          <img src={this.state.imgPath} alt="img preview" className="imgPrev" id="imgPrev" />
-          <Button
-            color="teal"
-            className="searchFormButton"
-            content="Find That Face"
-            type='submit'
-            onClick={this.fetchActorFromClarifai}
-          />
-          </>
+            <>
+              <div className="imgPrevContainer">
+                <Icon
+                  size="large"
+                  link
+                  inverted
+                  name='redo alternate'
+                  className="imgRotate"
+                  onClick={this.rotate}
+                />
+                { this.state.rotating ? <p>rotating</p> : null }
+                <img src={this.state.imgPath} alt="img preview" className="imgPrev" id="imgPrev" />
+              </div>
+              <Button
+                color="teal"
+                className="searchFormButton"
+                content="Find That Face"
+                type='submit'
+                onClick={this.fetchActorFromClarifai}
+              />
+            </>
           :
           null
         }
@@ -198,7 +199,7 @@ class FaceCapture extends React.Component {
         <>
         <Message color='teal'>
         <Message.Header>
-          ShaBang! We found a likely match ({Math.round(topMatchValue * 100)}% Match).
+          ShaBang! We found a likely match. ({Math.round(topMatchValue * 100)}% match)
         </Message.Header>
         </Message>
         <ActorCard actor={this.state.foundActor}/>
@@ -211,6 +212,7 @@ class FaceCapture extends React.Component {
     )
   }
 }
+
 
 function mapDispatchToProps(dispatch) {
   return {

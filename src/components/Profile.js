@@ -3,21 +3,10 @@ import withAuth from '../HOC/withAuth'
 import { withRouter } from 'react-router-dom'
 import UserInfo from './UserInfo'
 import ActorTile from './ActorTile'
-import Shabacon from '../containers/Shabacon'
 import { Segment, Button, Popup } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 class Profile extends React.Component {
-
-  state = {
-    shaBacon: false
-  }
-
-  shaBacon = () => {
-    this.setState(prevState => ({
-      shaBacon: !prevState.shaBacon
-    }))
-  }
 
   renderActorTiles = () => {
     return this.props.currentUser.actors.map(actor => <ActorTile key={actor.id} actor={actor}/>)
@@ -27,20 +16,18 @@ class Profile extends React.Component {
     const { actors } = this.props.currentUser
     return(
       <div className="profilePage">
-        { this.state.shaBacon
-              ?
-            <div className="newSearchButton">
-          <Button
-            className="newSearchButton"
-            color="yellow"
-            onClick={this.shaBacon}
-            content="Back to Account History"
-          />
-          </div>
-          :
-          <>
+        <Segment className="profileDetailsSegment">
           <UserInfo/>
-          <div className="newSearchButton">
+        </Segment>
+        <div className="newSearchButton">
+          <Button
+            content='Start New Search'
+            color="black"
+            onClick={()=> this.props.history.push('/home') }
+            />
+        </div>
+        { actors.length ?
+        <div className="newSearchButton">
           <Popup
             wide='very'
             content='Find out which of your actors have starred in movies together'
@@ -49,39 +36,22 @@ class Profile extends React.Component {
               <Button
               className="newSearchButton"
               color="yellow"
-              onClick={this.shaBacon}
+              onClick={() => this.props.history.push('/shabacon')}
               content="ShaBaconize"
             />}
           />
-          </div>
-          <div className="newSearchButton">
-          <Button
-            content='Start New Search'
-            color="black"
-            onClick={()=> this.props.history.push('/home') }
-            />
-          </div>
-          </>
-        }
-        { !this.state.shaBacon ?
-          <Segment.Group compact className="actorTileSegment">
-          <Segment secondary>
-            <h1 className="RecentSearchText">Search History</h1>
-          </Segment>
-          <Segment >
-            {actors && this.renderActorTiles()}
-          </Segment>
-          </Segment.Group >
+        </div>
         :
-          <Segment.Group compact className="actorTileSegment">
-          <Segment secondary>
-            <h1 className="RecentSearchText">Six Degrees of ShaBacon</h1>
-          </Segment>
-          <Segment >
-            <Shabacon />
-          </Segment>
-          </Segment.Group >
-        }
+        null
+      }
+        <Segment.Group compact className="actorTileSegment">
+        <Segment secondary>
+          <h1 className="RecentSearchText">Search History</h1>
+        </Segment>
+        <Segment >
+          {this.renderActorTiles()}
+        </Segment>
+        </Segment.Group >
       </div>
     )
   }

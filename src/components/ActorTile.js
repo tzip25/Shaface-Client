@@ -4,43 +4,44 @@ import ActorModal from '../components/ActorModal'
 import { connect } from 'react-redux'
 import adapter from '../adapter'
 
+class ActorTile extends React.Component {
 
-const ActorTile = ( props ) => {
-
-  const { actor } = props
-
-  const deleteActor = () => {
+  deleteActor = () => {
     const token = localStorage.getItem("token")
-    adapter.deleteActor(actor.id, token)
-    .then(res => { props.setUser(res) })
+    adapter.deleteActor(this.props.actor.id, token)
+    .then(res => { this.props.setUser(res) })
   }
 
-  return (
-    <div className="actorTileDiv" >
-        <Segment className="actorTileDiv">
-        < ActorModal
-          actor={actor}
-          button={
-            <div>
-            <Image rounded src={actor.img_url} className="tileImage" alt="actor tile"/>
-            <br/>
-            <span className="actorTileName">
-              {actor.name}
-            </span>
-            </div>
-          }
-        />
-        < Icon
-          size='small'
-          link
-          name='trash alternate outline'
-          onClick={deleteActor}
-          className="tileIcon"
-        />
-        </Segment>
-    </div>
-  )
+  render(){
+      const { actor } = this.props
+      return (
+        <div className="actorTileDiv" >
+            <Segment className="actorTileDiv">
+            < ActorModal
+              actor={actor}
+              button={
+                <div>
+                <Image rounded src={actor.img_url} className="tileImage" alt="actor tile"/>
+                <br/>
+                <span className="actorTileName">
+                  {actor.name}
+                </span>
+                </div>
+              }
+            />
+            < Icon
+              size='small'
+              link
+              name='trash alternate outline'
+              onClick={this.deleteActor}
+              className="tileIcon"
+            />
+            </Segment>
+        </div>
+      )
+    }
 }
+
 
 function mapDispatchToProps(dispatch) {
   return {
