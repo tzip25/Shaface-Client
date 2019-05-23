@@ -56,7 +56,7 @@ class ActorModal extends React.Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-        <Button color="teal" onClick={this.openIMDB} icon>View IMDB Profile</Button>
+        <Button color="black" onClick={this.openIMDB} icon>View IMDB Profile</Button>
         {this.nestedModal()}
         </Modal.Actions>
       </Modal>

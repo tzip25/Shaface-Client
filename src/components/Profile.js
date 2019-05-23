@@ -26,7 +26,8 @@ class Profile extends React.Component {
             onClick={()=> this.props.history.push('/home') }
             />
         </div>
-        { actors.length ?
+        { actors && actors.length ?
+          <>
         <div className="newSearchButton">
           <Popup
             wide='very'
@@ -41,9 +42,6 @@ class Profile extends React.Component {
             />}
           />
         </div>
-        :
-        null
-      }
         <Segment.Group compact className="actorTileSegment">
         <Segment secondary>
           <h1 className="RecentSearchText">Search History</h1>
@@ -52,6 +50,10 @@ class Profile extends React.Component {
           {this.renderActorTiles()}
         </Segment>
         </Segment.Group >
+        </>
+        :
+        null
+      }
       </div>
     )
   }

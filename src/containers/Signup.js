@@ -1,8 +1,5 @@
 import React from 'react';
 import { Button, Form, Message } from 'semantic-ui-react'
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import adapter from '../adapter'
 
 class Signup extends React.Component {
 
@@ -13,39 +10,17 @@ class Signup extends React.Component {
     password: '',
     passwordConfirm: '',
     email: '',
-    errors: null
   }
 
   handleChange = (e) => { this.setState({ [e.target.name]: e.target.value }) }
-
-  createUser = (e) => {
-    e.preventDefault()
-    if (this.state.password === this.state.passwordConfirm) {
-      adapter.createUser(this.state)
-      .then((res) => {
-        if (res.errors){
-          this.setState({
-            errors: res.errors
-          })
-        } else {
-          localStorage.setItem("token", res.token)
-          this.props.setUser(res.user)
-          this.props.history.push("/profile")
-        }
-      })
-    } else {
-      this.setState({
-        errors: "Passwords don't match"
-      })
-    }
-  }
+  signup = (e) => this.props.signup(e, this.state)
 
   render(){
     return(
       <>
       <h1 className="h1HeaderText">Sign Up</h1>
-        <Form onSubmit={this.createUser}>
-          {this.state.errors && <Message negative><Message.Header>{this.state.errors}</Message.Header></Message>}
+        <Form onSubmit={this.signup}>
+          {this.props.signupErrors && <Message negative><Message.Header>{this.props.signupErrors}</Message.Header></Message>}
           <Form.Group widths='equal'>
             <Form.Field>
               <label>Firs Name</label>
@@ -83,13 +58,4 @@ class Signup extends React.Component {
   }
 }
 
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setUser: (currentUser) => {
-      // dispatch is our new setState and it takes an object with a type and a payload
-      dispatch({type: "SET_USER", payload: currentUser})
-    }
-  }
-}
-export default connect(null, mapDispatchToProps)(withRouter(Signup));
+export default Signup

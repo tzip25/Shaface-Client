@@ -18,7 +18,7 @@ class App extends React.Component {
       <Switch>
         <Route exact path='/' render={(routeProps) => <SplashPage {...routeProps}/> } />
         <Route path='/home' render={() => <FaceCapture/> } />
-        <Route path='/login' render={(routeProps) => <LoginContainer {...routeProps}/> } />
+        <Route path='/login' render={(routeProps) => <LoginContainer /> } />
         <Route path='/profile' render={() => <Profile/> } />
         <Route path='/shabacon' render={() => <Shabacon />} />
         <Redirect to="/home" />
