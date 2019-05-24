@@ -42,7 +42,6 @@ class ActorModal extends React.Component {
 
   render(){
     const { actor } = this.props
-
     return(
       <Modal trigger={this.props.button} size='large' closeIcon>
         <Modal.Header className="actorNameCaps">{actor.name} </Modal.Header>

@@ -7,7 +7,7 @@ class LoadingMini extends React.Component {
     return(
         <div>
           <h1 className="pulsate loadText">
-            ShaGathering your info...
+            Gathering your whoData...
           </h1>
           <Icon
             size="huge"
