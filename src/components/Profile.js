@@ -13,6 +13,7 @@ class Profile extends React.Component {
   }
 
   filter = (e) => {
+    console.log(e.target.value);
     const filteredActors = this.props.currentUser.actors.filter(actor => actor.name.includes(e.target.value))
     return this.setState({
       filteredActors: filteredActors
@@ -85,17 +86,7 @@ class Profile extends React.Component {
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
-    userActors: state.userActors,
   }
 }
 
-
-function mapDispatchToProps(dispatch) {
-  return {
-    setUserActors: (actors) => {
-      dispatch({type: "SET_USER_ACTORS", payload: actors})
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withAuth(withRouter(Profile)));
+export default connect(mapStateToProps)(withAuth(withRouter(Profile)));

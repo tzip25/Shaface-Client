@@ -44,10 +44,13 @@ class App extends React.Component {
 				}
 			})
 		}
+    adapter.getStats()
+    .then(res => {
+      this.props.setStats(res)
+    })
 	}
 
   render(){
-
     return (
       <div className="App">
         <div className="AppBody">
@@ -65,6 +68,9 @@ function mapDispatchToProps(dispatch) {
     setUser: (currentUser) => {
       // dispatch is our new setState and it takes an object with a type and a payload
       dispatch({type: "SET_USER", payload: currentUser})
+    },
+    setStats: (stats) => {
+      dispatch({type: "SET_STATS", payload: stats})
     }
   }
 }

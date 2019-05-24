@@ -1,6 +1,6 @@
-const APP_URL = "https://whodat-api.herokuapp.com"
+// const APP_URL = "https://whodat-api.herokuapp.com"
 // const APP_URL = "http://635bec58.ngrok.io"
-// const APP_URL = "http://localhost:3000"
+const APP_URL = "http://localhost:3000"
 
 
 const adapter = {
@@ -61,6 +61,11 @@ const adapter = {
     return fetch(`${APP_URL}/movies`, {
       headers: { "Authorization": token }
     }).then(res => res.json())
+  },
+
+  getStats: () => {
+    return fetch(`${APP_URL}/stats`)
+    .then(res => res.json())
   },
 
 }
