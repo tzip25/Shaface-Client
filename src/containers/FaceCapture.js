@@ -61,6 +61,10 @@ class FaceCapture extends React.Component {
     })
   }
 
+  fileUploadCamera = (e) => {
+    // work on auto rotate here
+  }
+
   fileUpload = (e) => {
     const file = e.target.files[0]
 
@@ -136,6 +140,7 @@ class FaceCapture extends React.Component {
   }
 
   fileInputRef = React.createRef();
+  fileInputRefMobile = React.createRef();
 
   render(){
     return(
@@ -149,12 +154,13 @@ class FaceCapture extends React.Component {
           id="mobileCamera"
           content="Capture an Image"
           icon="camera"
-          onClick={() => this.fileInputRef.current.click()}
+          onClick={() => this.fileInputRefMobile.current.click()}
         />
         <input
-          ref={this.fileInputRef}
           type="file"
-          capture="camera"
+          accept="image/*"
+          capture
+          ref={this.fileInputRefMobile}
           hidden
           onChange={this.fileUpload}
           className="mobileCamera"
@@ -175,8 +181,7 @@ class FaceCapture extends React.Component {
                 onClick={() => this.fileInputRef.current.click()}
               />
               <input
-                accept="image/*"
-                capture="camera"
+                type="file"
                 ref={this.fileInputRef}
                 hidden
                 onChange={this.fileUpload}
