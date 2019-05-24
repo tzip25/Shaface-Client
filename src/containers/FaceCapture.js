@@ -51,14 +51,13 @@ class FaceCapture extends React.Component {
             noMatchFound: "Dang. No likely matches found.",
             loading: false
           })
-        },
-        function(err) {
+        })
+        .catch(err => {
           this.setState({
-            noMatchFound: "Image quality low. Please try a new image.",
-            loading: false
+            loading: false,
+            noMatchFound: "Invalid image quality or type.",
           })
-        }
-      );
+        })
     })
   }
 
