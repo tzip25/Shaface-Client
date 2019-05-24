@@ -71,7 +71,7 @@ class Profile extends React.Component {
           <Input
             size='mini'
             placeholder="Filter actors by name"
-            onChange={this.filter}
+            onKeyUp={this.filter}
           />
           </div>
         </Segment>
