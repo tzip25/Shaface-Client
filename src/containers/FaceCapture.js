@@ -175,6 +175,8 @@ class FaceCapture extends React.Component {
                 onClick={() => this.fileInputRef.current.click()}
               />
               <input
+                accept="image/*"
+                capture="camera"
                 ref={this.fileInputRef}
                 hidden
                 onChange={this.fileUpload}
