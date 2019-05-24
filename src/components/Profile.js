@@ -3,17 +3,39 @@ import withAuth from '../HOC/withAuth'
 import { withRouter } from 'react-router-dom'
 import UserInfo from './UserInfo'
 import ActorTile from './ActorTile'
-import { Segment, Button, Popup } from 'semantic-ui-react'
+import { Segment, Button, Popup, Input} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 class Profile extends React.Component {
 
+  state = {
+    actors: [],
+    filteredActors: []
+  }
+
+  componentDidMount() {
+    this.setState({
+      actors: this.props.currentUser.actors
+    })
+  }
+
+  filter = (e) => {
+    const filteredActors = this.state.actors.filter(actor => actor.name.includes(e.target.value))
+    return this.setState({
+      filteredActors: filteredActors
+    })
+  }
+
   renderActorTiles = () => {
-    return this.props.currentUser.actors.map(actor => <ActorTile key={actor.id} actor={actor}/>)
+    if(this.state.filteredActors.length){
+      return this.state.filteredActors.map(actor => <ActorTile key={actor.id} actor={actor}/>)
+    } else {
+      return this.state.actors.map(actor => <ActorTile key={actor.id} actor={actor}/>)
+    }
   }
 
   render(){
-    const { actors } = this.props.currentUser
+    const actors = this.state.actors
     return(
       <div className="profilePage">
         <Segment className="profileDetailsSegment">
@@ -44,7 +66,14 @@ class Profile extends React.Component {
         </div>
         <Segment.Group compact className="actorTileSegment">
         <Segment secondary>
-          <h1 className="RecentSearchText">Search History</h1>
+          <h1 className="RecentSearchText">Your Search History</h1>
+          <div className="floatR">
+          <Input
+            size='mini'
+            placeholder="Filter actors by name"
+            onChange={this.filter}
+          />
+          </div>
         </Segment>
         <Segment >
           {this.renderActorTiles()}
