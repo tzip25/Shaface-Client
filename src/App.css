@@ -50,7 +50,15 @@
 .customButton {
   color: black;
 }
-
+.customMessage {
+  line-height: 2.4em;
+  color: white;
+  font-size: 1.2em;
+  background-color: #9E2064;
+  height: 40px;
+  border-radius: 5px;
+  margin-bottom: 10px
+}
 .newSearchButton {
   float: left;
   clear: both;
@@ -110,20 +118,29 @@
   background-position: 50% 50%;
 }
 
+.actorCard {
+  background-color: white;
+  border-radius: 5px;
+  display: inline-block;
+  max-width: 700px;
+  padding: 10px;
+}
 .actorCardImage {
-  height: 400px;
+  float: left;
+  height: 350px;
+  width: 300px;
   object-fit: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
-
-.actorCard {
-  vertical-align: top;
-  padding-bottom: 20px;
-}
-
-.actorDetails {
+.actorCardDetails {
+  max-width: 250px;
+  float: left;
+  margin: 20px;
   text-align: left;
+}
+.actorCardName{
+  text-transform: capitalize;
 }
 
 .tileImage {
@@ -259,11 +276,6 @@
 .movieTitle{
   font-size: 1.2em;
   font-weight: bold;
-}
-
-.actorNameCaps{
-  color: #32BEBD;
-  text-transform: capitalize;
 }
 
 .baconize {

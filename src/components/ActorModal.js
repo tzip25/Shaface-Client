@@ -44,7 +44,7 @@ class ActorModal extends React.Component {
     const { actor } = this.props
     return(
       <Modal trigger={this.props.button} size='large' closeIcon>
-        <Modal.Header className="actorNameCaps">{actor.name} </Modal.Header>
+        <Modal.Header className="actorCardName">{actor.name} </Modal.Header>
         <Modal.Content image >
         <Image wrapped size='large' src={actor.img_url} />
           <Modal.Description>

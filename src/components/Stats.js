@@ -20,7 +20,7 @@ class Stats extends React.Component {
           <Icon name='search' />
           {siteStats.searches}
         </Statistic.Value>
-        <Statistic.Label>Searches Run</Statistic.Label>
+        <Statistic.Label>Total Searches</Statistic.Label>
       </Statistic>
     </Statistic.Group>
     )
