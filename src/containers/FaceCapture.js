@@ -3,6 +3,7 @@ import { Button, Input, Divider, Message, Icon } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
 import { connect } from 'react-redux'
 import Loading from '../components/Loading'
+import Stats from '../components/Stats'
 import adapter from '../adapter'
 
 const Clarifai = require('clarifai');
@@ -25,6 +26,13 @@ class FaceCapture extends React.Component {
       imgPath: [e.target.value],
       imgUrl: [e.target.value],
       noMatchFound: null,
+    })
+  }
+
+  componentWillUpdate(){
+    adapter.getStats()
+    .then(res => {
+      this.props.setStats(res)
     })
   }
 
@@ -180,7 +188,9 @@ class FaceCapture extends React.Component {
               ><span className="customButton">Find That Face</span></Button>
             </>
           :
-          null
+          <div className="center">
+          <Stats/>
+          </div>
         }
 
         {
@@ -221,6 +231,9 @@ function mapDispatchToProps(dispatch) {
   return {
     setUser: (currentUser) => {
       dispatch({type: "SET_USER", payload: currentUser})
+    },
+    setStats: (stats) => {
+      dispatch({type: "SET_STATS", payload: stats})
     }
   }
 }
