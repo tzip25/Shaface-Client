@@ -187,7 +187,8 @@ class FaceCapture extends React.Component {
               ><span className="customButton">Find That Face</span></Button>
             </>
           :
-          <div className="center">
+          <div>
+          <br/>
           <Stats/>
           </div>
         }
