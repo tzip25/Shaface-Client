@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Image, Segment, Button} from 'semantic-ui-react'
+import { Image, Button} from 'semantic-ui-react'
 import ActorModal from '../components/ActorModal'
 
 class ActorCard extends React.Component {
@@ -22,28 +22,17 @@ class ActorCard extends React.Component {
 
     return(
       actor ?
-      <>
-      <Segment className="actorCard" >
-        <div className="actorCardInner">
-          <Grid stackable columns={2}>
-            <Grid.Column>
-              <Image className="actorCardImage" src={actor.img_url} width="300px"/>
-            </Grid.Column>
-            <Grid.Column>
-              <div className="actorDetails">
-                <h1 className="actorNameCaps">{actor.name}</h1>
-                <p><b>Birthday:</b> {actor.birthday}</p>
-                <h3>Recent Features</h3>
-                <ul>{formattedMovies()}</ul>
-                <br/>
-                <ActorModal actor={actor} button={this.modalButton()}/>
-              </div>
-            </Grid.Column>
-          </Grid>
+      <span className="actorCard">
+        <Image className="actorCardImage" src={actor.img_url} />
+        <div className="actorCardDetails">
+          <h1 className="actorCardName">{actor.name}</h1>
+          <p><b>Birthday:</b> {actor.birthday}</p>
+          <h3>Recent Features</h3>
+          <ul>{formattedMovies()}</ul>
+          <br/>
+          <ActorModal actor={actor} button={this.modalButton()}/>
         </div>
-      </Segment>
-
-      </>
+      </span>
       :
       null
     )

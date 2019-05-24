@@ -59,7 +59,7 @@ class Profile extends React.Component {
           <div className="floatR">
           <Input
             type="text"
-            size='mini'
+            size='small'
             value={this.state.filterVal}
             placeholder="Filter actors by name"
             onChange={this.filter}

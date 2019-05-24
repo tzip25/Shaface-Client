@@ -187,7 +187,8 @@ class FaceCapture extends React.Component {
               ><span className="customButton">Find That Face</span></Button>
             </>
           :
-          <div className="center">
+          <div>
+          <br/>
           <Stats/>
           </div>
         }
@@ -204,22 +205,18 @@ class FaceCapture extends React.Component {
           null
         }
       </div>
-      <div className="actorCard">
       {
         this.state.foundActor
         ?
-        <>
-        <Message color='teal'>
-        <Message.Header>
+        <div>
+          <div className="customMessage">
           Found a likely match! {Math.round(topMatchValue * 100)}% match
-        </Message.Header>
-        </Message>
+          </div>
         <ActorCard actor={this.state.foundActor}/>
-        </>
+        </div>
         :
         null
       }
-      </div>
     </div>
     )
   }
