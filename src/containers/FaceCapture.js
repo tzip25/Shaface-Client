@@ -39,17 +39,22 @@ class FaceCapture extends React.Component {
           ?
           this.fetchActorFromBackend({name: actorName})
           :
-          this.setState({ noMatchFound: true, loading: false })
+          this.setState({
+            noMatchFound: "Dang. No likely matches found.",
+            loading: false
+          })
         },
         function(err) {
-            alert("There was an error reading your image. Please try another photo.")
+          this.setState({
+            noMatchFound: "Image quality low. Please try a new image.",
+            loading: false
+          })
         }
       );
     })
   }
 
   fileUpload = (e) => {
-
     const file = e.target.files[0]
 
     if (file){
@@ -64,27 +69,26 @@ class FaceCapture extends React.Component {
           noMatchFound: null,
           imgUrl: null,
         })
-
       }
     }
   }
 
   rotate = () => {
     // create an off-screen canvas
-    var offScreenCanvas = document.createElement('canvas');
-    var offScreenCanvasCtx = offScreenCanvas.getContext('2d');
+    var canvas = document.createElement('canvas');
+    var canvasCtx = canvas.getContext('2d');
     // cteate Image
     var img = new Image();
     img.src = this.state.imgPath;
     // set its dimension to rotated size
-    offScreenCanvas.height = img.width;
-    offScreenCanvas.width = img.height;
+    canvas.height = img.width;
+    canvas.width = img.height;
     // rotate and draw source image into the off-screen canvas:
-    offScreenCanvasCtx.rotate(Math.PI / 2);
-    offScreenCanvasCtx.translate(0, -offScreenCanvas.width);
-    offScreenCanvasCtx.drawImage(img, 0, 0);
+    canvasCtx.rotate(Math.PI / 2);
+    canvasCtx.translate(0, -canvas.width);
+    canvasCtx.drawImage(img, 0, 0);
 
-    const dataURL = offScreenCanvas.toDataURL("image/jpeg", 1);
+    const dataURL = canvas.toDataURL("image/jpeg", 1);
     const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
 
     this.setState({
@@ -102,7 +106,7 @@ class FaceCapture extends React.Component {
       actor[0] === "no actor found"
       ?
         this.setState({
-          noMatchFound: true,
+          noMatchFound: "Dang. No likely matches found.",
           loading: false
         })
       :
@@ -170,10 +174,9 @@ class FaceCapture extends React.Component {
               <Button
                 color="yellow"
                 className="searchFormButton"
-                content="Find That Face"
                 type='submit'
                 onClick={this.fetchActorFromClarifai}
-              />
+              ><span className="customButton">Find That Face</span></Button>
             </>
           :
           null
@@ -184,7 +187,7 @@ class FaceCapture extends React.Component {
           ?
           <Message negative>
             <Message.Header>
-              WhoDang. No likely matches found.
+              <p>{this.state.noMatchFound}</p>
             </Message.Header>
           </Message>
           :
@@ -198,7 +201,7 @@ class FaceCapture extends React.Component {
         <>
         <Message color='teal'>
         <Message.Header>
-          WhoDat! We found a likely match. ({Math.round(topMatchValue * 100)}% match)
+          Found Dat likely match! ({Math.round(topMatchValue * 100)}% match)
         </Message.Header>
         </Message>
         <ActorCard actor={this.state.foundActor}/>

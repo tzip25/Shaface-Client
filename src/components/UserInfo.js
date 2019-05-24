@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input, Form, Segment, Modal, Header, Icon } from 'semantic-ui-react'
+import { Button, Input, Form, Modal, Header, Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import adapter from '../adapter'
@@ -85,7 +85,6 @@ class UserInfo extends React.Component {
         )
     } else if(this.state.edit) {
         return (
-          <Segment className="profileDetailsSegment">
             <Form onSubmit={this.updateUserInfo} >
               <span className="profileDetails">
               <b>First Name:</b><br/>
@@ -124,7 +123,6 @@ class UserInfo extends React.Component {
             <Button color="black" >Save</Button>
             </span>
             </Form>
-            </Segment>
         )
       } else {
         return null

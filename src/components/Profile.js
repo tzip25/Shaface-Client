@@ -35,11 +35,11 @@ class Profile extends React.Component {
             position='bottom left'
             trigger={
               <Button
-              className="newSearchButton"
               color="yellow"
               onClick={() => this.props.history.push('/baconize')}
-              content="Baconize"
-            />}
+              >
+              <span className="customButton">Baconize</span>
+            </Button>}
           />
         </div>
         <Segment.Group compact className="actorTileSegment">

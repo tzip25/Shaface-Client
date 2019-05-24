@@ -47,6 +47,10 @@
   float: right;
 }
 
+.customButton {
+  color: black;
+}
+
 .newSearchButton {
   float: left;
   clear: both;
