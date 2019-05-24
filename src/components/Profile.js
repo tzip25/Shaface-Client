@@ -9,18 +9,11 @@ import { connect } from 'react-redux'
 class Profile extends React.Component {
 
   state = {
-    actors: [],
     filteredActors: []
   }
 
-  componentDidMount() {
-    this.setState({
-      actors: this.props.currentUser.actors
-    })
-  }
-
   filter = (e) => {
-    const filteredActors = this.state.actors.filter(actor => actor.name.includes(e.target.value))
+    const filteredActors = this.props.currentUser.actors.filter(actor => actor.name.includes(e.target.value))
     return this.setState({
       filteredActors: filteredActors
     })
@@ -30,12 +23,12 @@ class Profile extends React.Component {
     if(this.state.filteredActors.length){
       return this.state.filteredActors.map(actor => <ActorTile key={actor.id} actor={actor}/>)
     } else {
-      return this.state.actors.map(actor => <ActorTile key={actor.id} actor={actor}/>)
+      return this.props.currentUser.actors.map(actor => <ActorTile key={actor.id} actor={actor}/>)
     }
   }
 
   render(){
-    const actors = this.state.actors
+    const {actors} = this.props.currentUser
     return(
       <div className="profilePage">
         <Segment className="profileDetailsSegment">
@@ -69,9 +62,10 @@ class Profile extends React.Component {
           <h1 className="RecentSearchText">Your Search History</h1>
           <div className="floatR">
           <Input
+            type="text"
             size='mini'
             placeholder="Filter actors by name"
-            onKeyUp={this.filter}
+            onChange={this.filter}
           />
           </div>
         </Segment>
@@ -91,7 +85,17 @@ class Profile extends React.Component {
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
+    userActors: state.userActors,
   }
 }
 
-export default connect(mapStateToProps)(withAuth(withRouter(Profile)));
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setUserActors: (actors) => {
+      dispatch({type: "SET_USER_ACTORS", payload: actors})
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withAuth(withRouter(Profile)));
