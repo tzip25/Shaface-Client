@@ -67,6 +67,7 @@ class FaceCapture extends React.Component {
           clarifaiBase64: clarifaiBase64,
           imgPath: reader.result,
           noMatchFound: null,
+          foundActor: null,
           imgUrl: null,
         })
       }
@@ -201,7 +202,7 @@ class FaceCapture extends React.Component {
         <>
         <Message color='teal'>
         <Message.Header>
-          Found Dat likely match! ({Math.round(topMatchValue * 100)}% match)
+          Found a likely match! {Math.round(topMatchValue * 100)}% match
         </Message.Header>
         </Message>
         <ActorCard actor={this.state.foundActor}/>
