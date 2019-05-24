@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input, Divider, Message, Icon } from 'semantic-ui-react'
+import { Button, Input, Divider, Icon } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
 import { connect } from 'react-redux'
 import Loading from '../components/Loading'
@@ -143,28 +143,66 @@ class FaceCapture extends React.Component {
       { this.state.loading ? <Loading/> : null }
       <div className="searchForm">
         <h1 className="h1HeaderText">Find a New Face</h1>
-        <Input
-          className="searchFormButton"
-          name="imgUrl"
-          placeholder="Enter an image url"
-          onChange={this.handleURLChange}/>
-        <Divider horizontal>Or</Divider>
         <Button
+          size="large"
           color="black"
-          className="searchFormButton"
-          content="Grab an Image"
-          labelPosition="left"
+          id="mobileCamera"
+          content="Capture an Image"
           icon="camera"
           onClick={() => this.fileInputRef.current.click()}
         />
         <input
           ref={this.fileInputRef}
           type="file"
+          capture="camera"
           hidden
           onChange={this.fileUpload}
-          className="searchFormButton"
+          className="mobileCamera"
         />
-        <br/>
+        <div id="mobileShow">
+          <Divider horizontal>Or</Divider>
+          <Input
+            size="mini"
+            className="imgInput"
+            name="imgUrl"
+            placeholder="Enter an Image URL"
+            onChange={this.handleURLChange}/>
+            <div className="imgInput">
+              <Button
+                size="mini"
+                content="Upload a File"
+                icon="file"
+                onClick={() => this.fileInputRef.current.click()}
+              />
+              <input
+                ref={this.fileInputRef}
+                hidden
+                onChange={this.fileUpload}
+              />
+            </div>
+          </div>
+          <div id="mobileHide">
+            <Input
+              className="searchFormButton"
+              name="imgUrl"
+              placeholder="Enter an image url"
+              onChange={this.handleURLChange}/>
+            <Divider id="mobileHide" horizontal>Or</Divider>
+            <Button
+              color="black"
+              className="searchFormButton"
+              content="Upload an Image"
+              icon="file"
+              onClick={() => this.fileInputRef.current.click()}
+            />
+            <input
+              ref={this.fileInputRef}
+              type="file"
+              hidden
+              onChange={this.fileUpload}
+              className="searchFormButton"
+            />
+          </div>
         {
           this.state.imgPath.length ?
             <>
@@ -192,15 +230,11 @@ class FaceCapture extends React.Component {
           <Stats/>
           </div>
         }
-
         {
-          this.state.noMatchFound
-          ?
-          <Message negative>
-            <Message.Header>
-              <p>{this.state.noMatchFound}</p>
-            </Message.Header>
-          </Message>
+          this.state.noMatchFound ?
+          <div className="customMessageNegative">
+            <p>{this.state.noMatchFound}</p>
+          </div>
           :
           null
         }
@@ -210,9 +244,9 @@ class FaceCapture extends React.Component {
         ?
         <div>
           <div className="customMessage">
-          Found a likely match! {Math.round(topMatchValue * 100)}% match
+            Found a likely match! {Math.round(topMatchValue * 100)}% match
           </div>
-        <ActorCard actor={this.state.foundActor}/>
+          <ActorCard actor={this.state.foundActor}/>
         </div>
         :
         null
