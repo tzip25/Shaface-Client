@@ -9,23 +9,18 @@ import { connect } from 'react-redux'
 class Profile extends React.Component {
 
   state = {
-    filteredActors: []
+    filterVal: "",
   }
 
   filter = (e) => {
-    console.log(e.target.value);
-    const filteredActors = this.props.currentUser.actors.filter(actor => actor.name.includes(e.target.value))
-    return this.setState({
-      filteredActors: filteredActors
+    this.setState({
+      filterVal: e.target.value.toLowerCase()
     })
   }
 
   renderActorTiles = () => {
-    if(this.state.filteredActors.length){
-      return this.state.filteredActors.map(actor => <ActorTile key={actor.id} actor={actor}/>)
-    } else {
-      return this.props.currentUser.actors.map(actor => <ActorTile key={actor.id} actor={actor}/>)
-    }
+    const filteredActors = this.props.currentUser.actors.filter(actor => actor.name.includes(this.state.filterVal))
+    return filteredActors.map(actor => <ActorTile key={actor.id} actor={actor}/>)
   }
 
   render(){
@@ -65,6 +60,7 @@ class Profile extends React.Component {
           <Input
             type="text"
             size='mini'
+            value={this.state.filterVal}
             placeholder="Filter actors by name"
             onChange={this.filter}
           />
