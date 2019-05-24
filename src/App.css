@@ -1,4 +1,4 @@
-/* YELLOW FFCE0C *//* PURPLE 000000 *//* TEAL 32BEBD *//* PINK 9E2064 */
+/* YELLOW FFCE0C *//* TEAL 32BEBD  *//* PINK #9E2064 */
 
 .App {
   text-align: center;
@@ -7,6 +7,9 @@
 .AppBody {
   background-color: #f9f9f9;
   min-height: 100vh;
+}
+ul {
+  padding-left: 20px;
 }
 
 .mainBody {
@@ -50,11 +53,23 @@
 .customButton {
   color: black;
 }
-.customMessage {
-  line-height: 2.4em;
+.customMessageNegative {
+  padding-top: 10px;
   color: white;
-  font-size: 1.2em;
+  font-size: 1em;
+  font-weight: bold;
   background-color: #9E2064;
+  height: 40px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-top: 10px
+}
+.customMessage {
+  padding-top: 10px;
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  background-color: #32BEBD;
   height: 40px;
   border-radius: 5px;
   margin-bottom: 10px
@@ -392,6 +407,20 @@
   }
 }
 
+/* Hidden on desktop */
+#mobileCamera {
+  display: none;
+}
+
+#mobileShow {
+  display: none;
+}
+
+.imgInput {
+  display: inline;
+  margin: 0px 5px 0px 5px;
+}
+
 /* Website Top Navigation */
 .nav {
   height: 50px;
@@ -468,6 +497,21 @@
   .nav > #nav-btn,.open ~ .nav-links {
     margin-top: 0px;
     height: 100vh;
+  }
+
+  #mobileCamera {
+    display: block;
+    margin-top: 10px;
+    width: 100%
+  }
+
+  #mobileShow {
+    width: 100%;
+    display: inline-block;
+  }
+
+  #mobileHide {
+    display: none;
   }
 }
 

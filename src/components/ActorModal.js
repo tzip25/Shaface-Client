@@ -46,7 +46,7 @@ class ActorModal extends React.Component {
       <Modal trigger={this.props.button} size='large' closeIcon>
         <Modal.Header className="actorCardName">{actor.name} </Modal.Header>
         <Modal.Content image >
-        <Image wrapped size='large' src={actor.img_url} />
+        <Image size='large' src={actor.img_url} />
           <Modal.Description>
             <Header>Born: {actor.birthday}</Header>
             {actor.deathday ? <h4>Died: ${actor.deathday}</h4> : null}
