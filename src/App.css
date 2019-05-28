@@ -91,43 +91,56 @@ ul {
   color: gray;
 }
 
+.aboutPageContainer {
+  color: #32BEBD;
+  text-align: left;
+  margin-left: 20px;
+  max-width: 550px;
+}
+
+.aboutP {
+  font-size: 1.2em;
+}
+
 .searchPageDiv {
   display: flex;
   flex-wrap: wrap;
   margin: auto;
   padding-top: 20px;
   padding-bottom: 20px;
-  max-width: 1000px;
+  width: 70%;
 }
 
 .stats {
-  padding-left: 20px;
-  padding-top: 30px;
-  padding-bottom: 10px;
-}
-
-.imgRotate {
-  z-index: 1;
+  padding: 10px
 }
 
 .searchForm {
-  vertical-align: top;
-  padding-top: 0px;
-  padding-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
   width: 300px;
+  vertical-align: top;
+  padding-bottom: 20px;
+  margin-left: 50px;
+  margin-right: 50px
 }
 
 .searchFormButton {
   width: 100%
 }
 
+.actorModalImg {
+  position: relative;
+  width: 400px;
+  height: 500px;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
 .imgPrevContainer {
   position: relative;
   width: 300px;
   height: 300px;
-  margin: 15px 0 10px 0;
+  margin: 10px 0 10px 0;
 }
 
 .imgRotate {
@@ -152,7 +165,6 @@ ul {
   background-color: white;
   border-radius: 5px;
   display: inline-block;
-  max-width: 700px;
   padding: 10px;
 }
 .actorCardImage {
@@ -300,6 +312,7 @@ ul {
 }
 
 .h1HeaderText {
+  font-size: 2.5em;
   color: #000000;
 }
 
@@ -424,10 +437,10 @@ ul {
 
 /* Hidden on desktop */
 #mobileCamera {
-  display: none;
+  width: 100%
 }
 
-#mobileShow {
+.mobileShow {
   display: none;
 }
 
@@ -534,6 +547,22 @@ ul {
     width: 90%;
   }
 
+  .searchForm {
+    margin: auto;
+    width: 90%;
+  }
+
+  .actorCard {
+    width: 100%;
+  }
+
+  .aboutPageContainer {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 0px;
+    margin-top: 20px;
+  }
+
   .profilePage {
     text-align: left;
     display: flex;
@@ -549,18 +578,12 @@ ul {
     margin: 0px 10px 5px 0px;
   }
 
-  #mobileCamera {
-    display: block;
-    margin-top: 10px;
-    width: 100%
-  }
-
-  #mobileShow {
+  .mobileShow {
     width: 100%;
     display: inline-block;
   }
 
-  #mobileHide {
+  .mobileHide {
     display: none;
   }
 

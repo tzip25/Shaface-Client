@@ -7,6 +7,7 @@ import LoginContainer from './components/LoginContainer'
 import Profile from './components/Profile'
 import Baconize from './containers/Baconize'
 import SplashPage from './components/SplashPage'
+import About from './components/About'
 import { connect } from 'react-redux'
 import adapter from './adapter'
 
@@ -20,7 +21,8 @@ class App extends React.Component {
         <Route path='/home' render={() => <FaceCapture/> } />
         <Route path='/login' render={(routeProps) => <LoginContainer /> } />
         <Route path='/profile' render={() => <Profile/> } />
-        <Route path='/baconize' render={() => <Baconize />} />
+        <Route path='/baconize' render={() => <Baconize />} />        <Route path='/baconize' render={() => <Baconize />} />
+        <Route path='/about' render={() => <About />} />
         <Redirect to="/home" />
       </Switch>
     )

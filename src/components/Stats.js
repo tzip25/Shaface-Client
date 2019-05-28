@@ -7,24 +7,27 @@ class Stats extends React.Component {
   render(){
     const {siteStats} = this.props
     return(
-      <div className="stats">
-    <Statistic.Group width='two' >
-      <Statistic>
-        <Statistic.Value>
-          <Icon name='users' />
-          {siteStats.actors}
-        </Statistic.Value>
-        <Statistic.Label>Actors Found</Statistic.Label>
-      </Statistic>
-      <Statistic>
-        <Statistic.Value>
-          <Icon name='search' />
-          {siteStats.searches}
-        </Statistic.Value>
-        <Statistic.Label>Total Searches</Statistic.Label>
-      </Statistic>
-    </Statistic.Group>
-    </div>
+      <Statistic.Group className="stats">
+        <Statistic >
+          <Statistic.Value>
+            <Icon name='users'/>
+            {siteStats.actors}
+          </Statistic.Value>
+          <Statistic.Label>
+            Actors Found
+          </Statistic.Label>
+        </Statistic>
+
+        <Statistic >
+          <Statistic.Value>
+            <Icon name='search' />
+            {siteStats.searches}
+          </Statistic.Value>
+          <Statistic.Label>
+            Total Searches
+          </Statistic.Label>
+        </Statistic>
+      </Statistic.Group>
     )
   }
 }
