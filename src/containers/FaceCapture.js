@@ -4,6 +4,7 @@ import ActorCard from '../components/ActorCard'
 import { connect } from 'react-redux'
 import Loading from '../components/Loading'
 import Stats from '../components/Stats'
+import About from '../components/About'
 import adapter from '../adapter'
 
 const Clarifai = require('clarifai');
@@ -50,12 +51,14 @@ class FaceCapture extends React.Component {
           :
           this.setState({
             noMatchFound: "Dang. No likely matches found.",
+            imgPath: "",
             loading: false
           })
         })
         .catch(err => {
           this.setState({
             loading: false,
+            imgPath: "",
             noMatchFound: "Invalid image quality or type.",
           })
         })
@@ -154,6 +157,7 @@ class FaceCapture extends React.Component {
       actor[0] === "no actor found"
       ?
         this.setState({
+          imgPath: "",
           noMatchFound: "Dang. No likely matches found.",
           loading: false
         })
@@ -182,56 +186,28 @@ class FaceCapture extends React.Component {
     return(
       <div className="searchPageDiv">
       { this.state.loading ? <Loading/> : null }
+
       <div className="searchForm">
+
         <h1 className="h1HeaderText">Find a New Face</h1>
-        <Button
-          size="large"
-          color="black"
-          id="mobileCamera"
-          content="Capture an Image"
-          icon="camera"
-          onClick={() => this.fileInputRefMobile.current.click()}
-        />
-        <input
-          type="file"
-          accept="image/*"
-          capture
-          ref={this.fileInputRefMobile}
-          hidden
-          onChange={this.mobileAutoRotate}
-          className="mobileCamera"
-        />
-        <div id="mobileShow">
+        <div className="mobileShow">
+          <Button color="black" id="mobileCamera" content="Capture an Image" icon="camera" onClick={() => this.fileInputRefMobile.current.click()} />
+          <input hidden type="file" accept="image/*" capture ref={this.fileInputRefMobile} onChange={this.mobileAutoRotate} className="mobileCamera" />
+
           <Divider horizontal>Or</Divider>
-          <Input
-            size="mini"
-            className="imgInput"
-            name="imgUrl"
-            placeholder="Enter an Image URL"
-            onChange={this.handleURLChange}/>
-            <div className="imgInput">
-              <Button
-                className="imgInput"
-                size="mini"
-                content="Upload a File"
-                icon="file"
-                onClick={() => this.fileInputRef.current.click()}
-              />
-              <input
-                type="file"
-                ref={this.fileInputRef}
-                hidden
-                onChange={this.fileUpload}
-              />
-            </div>
-          </div>
-          <div id="mobileHide">
+
+          <Input size="mini" className="imgInput" name="imgUrl" placeholder="Enter an Image URL" onChange={this.handleURLChange}/>
+          <Button className="imgInput" size="mini" content="Upload a File" icon="file" onClick={() => this.fileInputRef.current.click()}/>
+          <input hidden type="file" ref={this.fileInputRef} onChange={this.fileUpload}/>
+        </div>
+
+        <div className="mobileHide">
             <Input
               className="searchFormButton"
               name="imgUrl"
               placeholder="Enter an image url"
               onChange={this.handleURLChange}/>
-            <Divider id="mobileHide" horizontal>Or</Divider>
+            <Divider className="mobileHide" horizontal>Or</Divider>
             <Button
               color="black"
               className="searchFormButton"
@@ -247,12 +223,7 @@ class FaceCapture extends React.Component {
               className="searchFormButton"
             />
           </div>
-          { this.state.rotate ?
-            <div >
-            <br/>
-            <Icon size="huge" loading name='spinner'/>
-            </div>
-           : null }
+          { this.state.rotate ? <><br/><Icon size="huge" loading name='spinner'/></> : null }
         {
           this.state.imgPath.length ?
             <>
@@ -275,8 +246,8 @@ class FaceCapture extends React.Component {
               ><span className="customButton">Find That Face</span></Button>
             </>
           :
-          null
-        }
+          <Stats/>
+          }
         {
           this.state.noMatchFound ?
           <div className="customMessageNegative">
@@ -285,8 +256,7 @@ class FaceCapture extends React.Component {
           :
           null
         }
-        <Stats/>
-      </div>
+        </div>
       {
         this.state.foundActor
         ?
@@ -297,7 +267,7 @@ class FaceCapture extends React.Component {
           <ActorCard actor={this.state.foundActor}/>
         </div>
         :
-        null
+        <div className="mobileHide"><About/></div>
       }
     </div>
     )

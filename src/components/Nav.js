@@ -37,6 +37,12 @@ class Nav extends React.Component {
           <Icon inverted size="large" id="nav-btn" className={this.className()} onClick={this.toggleNav} name="bars" />
 
           <div className="nav-links">
+          <Link onClick={this.closeNav} className={this.linkClass('/about')} to="/about">
+            <span className={`${this.linkClass('/about')} mobileShow`}>
+            About
+            </span>
+          </Link>
+          
           <Link onClick={this.closeNav} className={this.linkClass('/home')} to="/home">
             <span className={this.linkClass('/home')} >
             Find a Face
