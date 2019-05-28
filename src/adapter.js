@@ -1,5 +1,5 @@
-// const APP_URL = "https://whodat-api.herokuapp.com"
-const APP_URL = "http://1208a185.ngrok.io"
+const APP_URL = "https://whodat-api.herokuapp.com"
+// const APP_URL = "http://1208a185.ngrok.io"
 // const APP_URL = "http://localhost:3000"
 
 
