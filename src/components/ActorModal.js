@@ -19,6 +19,7 @@ class ActorModal extends React.Component {
   nestedModal = () => {
     return(
       <Modal
+        closeIcon
         open={this.state.open}
         onOpen={this.open}
         onClose={this.close}

@@ -7,7 +7,8 @@ class Stats extends React.Component {
   render(){
     const {siteStats} = this.props
     return(
-    <Statistic.Group width='two'>
+      <div className="stats">
+    <Statistic.Group width='two' >
       <Statistic>
         <Statistic.Value>
           <Icon name='users' />
@@ -23,6 +24,7 @@ class Stats extends React.Component {
         <Statistic.Label>Total Searches</Statistic.Label>
       </Statistic>
     </Statistic.Group>
+    </div>
     )
   }
 }

@@ -56,7 +56,7 @@ class Profile extends React.Component {
         <Segment.Group compact className="actorTileSegment">
         <Segment secondary>
           <h1 className="RecentSearchText">Previous Search History</h1>
-          <div className="floatR">
+          <div className="filterAct">
           <Input
             type="text"
             size='small'

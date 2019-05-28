@@ -67,7 +67,7 @@ class UserInfo extends React.Component {
               <b>Email:</b> {this.props.currentUser.email}
             </span>
             <span>
-            <div className="floatR" >
+            <div className="EditProfile" >
               <Icon name="edit" link color="yellow" onClick={this.editProfile} />
               <Icon name="delete" link onClick={this.openModal} />
             </div>

@@ -19,6 +19,7 @@ class FaceCapture extends React.Component {
     noMatchFound: null,
     foundActor: null,
     loading: false,
+    rotate: false,
   }
 
   handleURLChange = (e) => {
@@ -62,33 +63,42 @@ class FaceCapture extends React.Component {
   }
 
   mobileAutoRotate = (e) => {
+    e.persist()
 
-    const file = e.target.files[0]
-    let _URL = window.URL || window.webkitURL;
-    const img = new Image();
-    img.onload = () => {
-      // Auto-rotate Mobile Image
-      var canvas = document.createElement('canvas');
-      var canvasCtx = canvas.getContext('2d');
-      // set its dimension to rotated size
-      canvas.height = img.width;
-      canvas.width = img.height;
-      // rotate and draw source image into the off-screen canvas:
-      canvasCtx.rotate(Math.PI / 2);
-      canvasCtx.translate(0, -canvas.width);
-      canvasCtx.drawImage(img, 0, 0);
+    this.setState({
+      rotate: true,
+      imgPath: "",
+    }, () => {
+      const file = e.target.files[0]
+      let _URL = window.URL || window.webkitURL;
+      const img = new Image();
+      img.onload = () => {
+        // Auto-rotate Mobile Image
+        var canvas = document.createElement('canvas');
+        var canvasCtx = canvas.getContext('2d');
+        // set its dimension to rotated size
+        canvas.height = img.width;
+        canvas.width = img.height;
+        // rotate and draw source image into the off-screen canvas:
+        canvasCtx.rotate(Math.PI / 2);
+        canvasCtx.translate(0, -canvas.width);
+        canvasCtx.drawImage(img, 0, 0);
 
-      const dataURL = canvas.toDataURL("image/jpeg", 1);
-      const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
+        const dataURL = canvas.toDataURL("image/jpeg", 1);
+        const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
 
-      this.setState({
-        clarifaiBase64: clarifaiBase64,
-        imgPath: dataURL,
-        noMatchFound: null,
-        imgUrl: null,
-      })
-    }
-    img.src = _URL.createObjectURL(file);
+        this.setState({
+          clarifaiBase64: clarifaiBase64,
+          imgPath: dataURL,
+          noMatchFound: null,
+          imgUrl: null,
+          foundActor: null,
+          rotate: false,
+        })
+      }
+      img.src = _URL.createObjectURL(file);
+
+    })
   }
 
   fileUpload = (e) => {
@@ -201,6 +211,7 @@ class FaceCapture extends React.Component {
             onChange={this.handleURLChange}/>
             <div className="imgInput">
               <Button
+                className="imgInput"
                 size="mini"
                 content="Upload a File"
                 icon="file"
@@ -236,6 +247,12 @@ class FaceCapture extends React.Component {
               className="searchFormButton"
             />
           </div>
+          { this.state.rotate ?
+            <div >
+            <br/>
+            <Icon size="huge" loading name='spinner'/>
+            </div>
+           : null }
         {
           this.state.imgPath.length ?
             <>
@@ -258,10 +275,7 @@ class FaceCapture extends React.Component {
               ><span className="customButton">Find That Face</span></Button>
             </>
           :
-          <div>
-          <br/>
-          <Stats/>
-          </div>
+          null
         }
         {
           this.state.noMatchFound ?
@@ -271,6 +285,7 @@ class FaceCapture extends React.Component {
           :
           null
         }
+        <Stats/>
       </div>
       {
         this.state.foundActor
