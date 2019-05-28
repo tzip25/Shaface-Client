@@ -1,18 +1,13 @@
 import React from 'react';
 import '../App.css';
 import { Button } from 'semantic-ui-react'
-import { connect } from 'react-redux'
 
 
 function SplashPage(props) {
 
-  const rerouteToHome = () => {
-    props.history.push('home');
-  }
-
-  const rerouteToLogin = () => {
-    props.history.push('login');
-  }
+  const token = localStorage.getItem("token")
+  const rerouteToHome = () => props.history.push('home')
+  const rerouteToLogin = () => props.history.push('login')
 
   return (
     <div className="App">
@@ -36,11 +31,7 @@ function SplashPage(props) {
             onClick={rerouteToHome}
            />
         </span>
-
-        {
-          props.currentUser
-          ?
-          null
+        { token ? null
           :
           <span className="SplashPageButton fadeIn3">
             <Button
@@ -52,17 +43,10 @@ function SplashPage(props) {
             />
           </span>
         }
-
         </div>
-        </header>
+      </header>
     </div>
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    currentUser: state.currentUser,
-  }
-}
-
-export default connect(mapStateToProps)(SplashPage);
+export default SplashPage
