@@ -83,7 +83,7 @@ class UserInfo extends React.Component {
             </span>
           </>
         )
-    } else if(this.state.edit) {
+    } else {
         return (
             <Form onSubmit={this.updateUserInfo} >
               <span className="profileDetails">
@@ -124,8 +124,6 @@ class UserInfo extends React.Component {
             </span>
             </Form>
         )
-      } else {
-        return null
       }
 
   }

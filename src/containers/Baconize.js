@@ -12,17 +12,25 @@ class Baconize extends React.Component {
   }
 
   componentDidMount(){
+    this.mounted = true;
+
     this.setState({
       loading: true
     })
     const token = localStorage.getItem("token")
     adapter.getBaconized(token)
     .then(movies => {
-      this.setState({
-        baconized: movies,
-        loading: false
-      })
+      if(this.mounted){
+        this.setState({
+          baconized: movies,
+          loading: false
+        })
+      }
     })
+  }
+
+  componentWillUnmount(){
+    this.mounted = false;
   }
 
   renderActors = () => {

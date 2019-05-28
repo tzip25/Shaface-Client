@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { Icon } from 'semantic-ui-react'
 import { withRouter } from 'react-router'
-import { connect } from 'react-redux'
 
 class Nav extends React.Component {
 
@@ -18,7 +17,6 @@ class Nav extends React.Component {
   logOut = () => {
     this.closeNav()
     this.props.logOut()
-
   }
 
   render(){
@@ -39,8 +37,22 @@ class Nav extends React.Component {
           <Icon inverted size="large" id="nav-btn" className={this.className()} onClick={this.toggleNav} name="bars" />
 
           <div className="nav-links">
-          {
-            token
+          <Link onClick={this.closeNav} className={this.linkClass('/home')} to="/home">
+            <span className={this.linkClass('/home')} >
+            Find a Face
+            </span>
+          </Link>
+
+          { token
+            ?
+            <Link onClick={this.closeNav} to="/profile">
+              <span className={this.linkClass('/profile')} >
+                Profile
+              </span>
+            </Link>
+            :
+            null }
+          { token
           ?
             <Link onClick={this.logOut} to="/">
               Logout
@@ -52,34 +64,10 @@ class Nav extends React.Component {
               </span>
             </Link>
           }
-
-          {
-            token
-            ?
-            <Link onClick={this.closeNav} to="/profile">
-              <span className={this.linkClass('/profile')} >
-                Profile
-              </span>
-            </Link>
-            :
-            null
-          }
-          <Link onClick={this.closeNav} className={this.linkClass('/home')} to="/home">
-            <span className={this.linkClass('/home')} >
-            Find a Face
-            </span>
-          </Link>
-
           </div>
         </div>
       )
     }
   }
 
-function mapStateToProps(state) {
-  return {
-    currentUser: state.currentUser,
-  }
-}
-
-export default connect(mapStateToProps)(withRouter(Nav));
+export default withRouter(Nav)
