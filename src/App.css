@@ -101,13 +101,9 @@ ul {
 }
 
 .stats {
-  padding-left: 20px;
+  padding-left: 0px;
   padding-top: 30px;
   padding-bottom: 10px;
-}
-
-.imgRotate {
-  z-index: 1;
 }
 
 .searchForm {
