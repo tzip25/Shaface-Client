@@ -54,7 +54,8 @@ class FaceCapture extends React.Component {
           :
           this.setState({
             noMatchFound: "Dang. No likely matches found.",
-            loading: false
+            loading: false,
+            imgPath: "",
           })
         })
         .catch(err => {
@@ -230,7 +231,8 @@ class FaceCapture extends React.Component {
       if(actor[0] === "no actor found"){
         this.setState({
           noMatchFound: "Dang. No likely matches found.",
-          loading: false
+          loading: false,
+          imgPath: "",
         })
       } else {
         this.setState({
@@ -323,8 +325,9 @@ class FaceCapture extends React.Component {
         this.state.foundActor
         ?
         <div>
+          <span className="matchPercent">({Math.round(topMatchValue * 100)}% match)</span>
           <div className="customMessage">
-            Found a likely match! {Math.round(topMatchValue * 100)}% match
+            Found a likely match!
           </div>
           <ActorCard actor={this.state.foundActor}/>
         </div>

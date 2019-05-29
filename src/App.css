@@ -59,30 +59,37 @@ ul {
   float: right;
 }
 
-.customButton {
-  color: black;
-}
 .customMessageNegative {
+  font-family: 'Permanent Marker', cursive;
+  padding-bottom: 10px;
+  color: #e21935;
+  font-size: 1.7em;
+  line-height: 1em;
   padding-top: 10px;
-  color: white;
+  /* color: white;
   font-size: 1em;
   font-weight: bold;
   background-color: #e21935;
   height: 40px;
   border-radius: 5px;
   margin-bottom: 10px;
-  margin-top: 25px
+  margin-top: 25px */
 }
 .customMessage {
-  padding-top: 10px;
+  font-family: 'Permanent Marker', cursive;
   padding-bottom: 10px;
-  color: white;
-  font-size: 1.2em;
-  font-weight: bold;
-  background-color: #00b5ad;
+  color: #00b5ad;
+  font-size: 1.7em;
+  line-height: 1em;
+  /* font-weight: bold; */
+  /* background-color: #00b5ad; */
   /* height: 40px; */
   /* border-radius: 5px; */
   /* margin-bottom: 10px; */
+}
+.matchPercent{
+  color: #00b5ad;
+  font-size: 0.9em;
 }
 .newSearchButton {
   float: left;
@@ -171,7 +178,7 @@ ul {
 
 .actorCard {
   background-color: white;
-  /* border-radius: 5px; */
+  border-radius: 5px;
   display: inline-block;
   padding: 10px;
 }
@@ -320,7 +327,7 @@ ul {
 }
 
 .h1HeaderText {
-  font-size: 2.5em;
+  font-size: 2.1em;
   color: #000000;
 }
 
@@ -395,10 +402,11 @@ ul {
 }
 
 .math {
+  font-family: 'Permanent Marker', cursive;
   text-align: center;
   padding: 40px;
-  color: #FFCE0C;
-  font-size: 30px;
+  color: #e21935;
+  font-size: 2em;
 }
 
 .loadText {
