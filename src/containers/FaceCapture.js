@@ -159,6 +159,7 @@ class FaceCapture extends React.Component {
     const token = localStorage.getItem("token")
     adapter.searchActor(actorName, token)
     .then(actor => {
+      console.log(actor);
       if(actor[0] === "no actor found"){
         this.setState({
           imgPath: "",
