@@ -154,14 +154,13 @@ class FaceCapture extends React.Component {
     const token = localStorage.getItem("token")
     adapter.searchActor(actorName, token)
     .then(actor => {
-      actor[0] === "no actor found"
-      ?
+      if(actor[0] === "no actor found"){
         this.setState({
           imgPath: "",
           noMatchFound: "Dang. No likely matches found.",
           loading: false
         })
-      :
+      } else {
         this.setState({
           clarifaiBase64: "",
           imgPath: "",
@@ -176,7 +175,9 @@ class FaceCapture extends React.Component {
       			.then((res) => res.errors ? null : this.props.setUser(res) )
       		}
         })
+      }
     })
+
   }
 
   fileInputRef = React.createRef();
