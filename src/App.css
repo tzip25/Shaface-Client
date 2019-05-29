@@ -112,7 +112,10 @@ ul {
 }
 
 .stats {
-  padding: 10px
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 25%;
+  margin: auto;
 }
 
 .searchForm {
@@ -549,7 +552,21 @@ ul {
 
   .searchForm {
     margin: auto;
-    width: 90%;
+    width: 270px;
+  }
+
+  .imgPrevContainer {
+    position: relative;
+    width: 270px;
+    height: 270px;
+    margin: 10px 0 10px 0;
+  }
+
+  .stats {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+    margin: auto;
   }
 
   .actorCard {

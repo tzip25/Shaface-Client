@@ -7,10 +7,10 @@ class Stats extends React.Component {
   render(){
     const {siteStats} = this.props
     return(
-      <Statistic.Group className="stats">
+      <Statistic.Group>
         <Statistic >
           <Statistic.Value>
-            <Icon name='users'/>
+            <Icon name='users' size="small"/>
             {siteStats.actors}
           </Statistic.Value>
           <Statistic.Label>
@@ -20,11 +20,11 @@ class Stats extends React.Component {
 
         <Statistic >
           <Statistic.Value>
-            <Icon name='search' />
+            <Icon name='search' size="small"/>
             {siteStats.searches}
           </Statistic.Value>
           <Statistic.Label>
-            Total Searches
+            Global Searches
           </Statistic.Label>
         </Statistic>
       </Statistic.Group>

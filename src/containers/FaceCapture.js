@@ -191,18 +191,19 @@ class FaceCapture extends React.Component {
 
   render(){
     return(
+      <>
       <div className="searchPageDiv">
+
       { this.state.loading ? <Loading/> : null }
 
       <div className="searchForm">
 
         <h1 className="h1HeaderText">Find a New Face</h1>
+
         <div className="mobileShow">
           <Button color="black" id="mobileCamera" content="Capture an Image" icon="camera" onClick={() => this.fileInputRefMobile.current.click()} />
           <input hidden type="file" accept="image/*" capture ref={this.fileInputRefMobile} onChange={this.mobileAutoRotate} className="mobileCamera" />
-
           <Divider horizontal>Or</Divider>
-
           <Input size="mini" className="imgInput" name="imgUrl" placeholder="Enter an Image URL" onChange={this.handleURLChange}/>
           <Button className="imgInput" size="mini" content="Upload a File" icon="file" onClick={() => this.fileInputRef.current.click()}/>
           <input hidden type="file" ref={this.fileInputRef} onChange={this.fileUpload}/>
@@ -230,30 +231,18 @@ class FaceCapture extends React.Component {
               className="searchFormButton"
             />
           </div>
-          { this.state.rotate ? <><br/><Icon size="huge" loading name='spinner'/></> : null }
+          { this.state.rotate ? <div><br/><Icon size="huge" loading name='spinner'/></div> : null }
         {
           this.state.imgPath.length ?
             <>
               <div className="imgPrevContainer">
-                <Icon
-                  size="large"
-                  link
-                  inverted
-                  name='redo alternate'
-                  className="imgRotate"
-                  onClick={this.rotate}
-                />
+                <Icon size="large" link inverted name='redo alternate' className="imgRotate" onClick={this.rotate} />
                 <img src={this.state.imgPath} alt="img preview" className="imgPrev" id="imgPrev" />
               </div>
-              <Button
-                color="yellow"
-                className="searchFormButton"
-                type='submit'
-                onClick={this.fetchActorFromClarifai}
-              ><span className="customButton">Find That Face</span></Button>
+              <Button content="Find That Face" color="teal" className="searchFormButton" type='submit' onClick={this.fetchActorFromClarifai} />
             </>
           :
-          <Stats/>
+          null
           }
         {
           this.state.noMatchFound ?
@@ -277,10 +266,12 @@ class FaceCapture extends React.Component {
         <div className="mobileHide"><About/></div>
       }
     </div>
+    </>
     )
   }
 }
 
+// <div className="stats">{!this.state.noMatchFound && !this.state.imgPath.length && !this.state.foundActor ? <Stats/> : null }</div>
 
 function mapDispatchToProps(dispatch) {
   return {
