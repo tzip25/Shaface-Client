@@ -3,7 +3,7 @@ import { Button, Input, Divider, Icon } from 'semantic-ui-react'
 import ActorCard from '../components/ActorCard'
 import { connect } from 'react-redux'
 import Loading from '../components/Loading'
-import Stats from '../components/Stats'
+// import Stats from '../components/Stats'
 import About from '../components/About'
 import adapter from '../adapter'
 
@@ -51,7 +51,6 @@ class FaceCapture extends React.Component {
           :
           this.setState({
             noMatchFound: "Dang. No likely matches found.",
-            imgPath: "",
             loading: false
           })
         })
@@ -88,7 +87,7 @@ class FaceCapture extends React.Component {
           canvasCtx.translate(0, -canvas.width);
           canvasCtx.drawImage(img, 0, 0);
 
-          const dataURL = canvas.toDataURL("image/jpeg", 1);
+          const dataURL = canvas.toDataURL("image/jpeg", 0.2);
           const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
 
           this.setState({
@@ -130,39 +129,37 @@ class FaceCapture extends React.Component {
   }
 
   rotate = () => {
-    // create an off-screen canvas
-    var canvas = document.createElement('canvas');
-    var canvasCtx = canvas.getContext('2d');
-    // cteate Image
-    var img = new Image();
-    img.src = this.state.imgPath;
-    // set its dimension to rotated size
-    canvas.height = img.width;
-    canvas.width = img.height;
-    // rotate and draw source image into the off-screen canvas:
-    canvasCtx.rotate(Math.PI / 2);
-    canvasCtx.translate(0, -canvas.width);
-    canvasCtx.drawImage(img, 0, 0);
+      // create an off-screen canvas
+      var canvas = document.createElement('canvas');
+      var canvasCtx = canvas.getContext('2d');
+      // cteate Image
+      var img = new Image();
+      img.src = this.state.imgPath;
+      // set its dimension to rotated size
+      canvas.height = img.width;
+      canvas.width = img.height;
+      // rotate and draw source image into the off-screen canvas:
+      canvasCtx.rotate(Math.PI / 2);
+      canvasCtx.translate(0, -canvas.width);
+      canvasCtx.drawImage(img, 0, 0);
 
-    const dataURL = canvas.toDataURL("image/jpeg", 1);
-    const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
+      const dataURL = canvas.toDataURL("image/jpeg", 1);
+      const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
 
-    this.setState({
-      clarifaiBase64: clarifaiBase64,
-      imgPath: dataURL,
-      noMatchFound: null,
-      imgUrl: null,
-    })
+      this.setState({
+        clarifaiBase64: clarifaiBase64,
+        imgPath: dataURL,
+        noMatchFound: null,
+        imgUrl: null,
+      })
   }
 
   fetchActorFromBackend = (actorName) => {
     const token = localStorage.getItem("token")
     adapter.searchActor(actorName, token)
     .then(actor => {
-      console.log(actor);
       if(actor[0] === "no actor found"){
         this.setState({
-          imgPath: "",
           noMatchFound: "Dang. No likely matches found.",
           loading: false
         })
@@ -231,7 +228,7 @@ class FaceCapture extends React.Component {
               className="searchFormButton"
             />
           </div>
-          { this.state.rotate ? <div><br/><Icon size="huge" loading name='spinner'/></div> : null }
+          { this.state.rotate ? <div className="rotateSpinner"><br/><Icon size="huge" loading name='spinner'/></div> : null }
         {
           this.state.imgPath.length ?
             <>
@@ -243,7 +240,7 @@ class FaceCapture extends React.Component {
             </>
           :
           null
-          }
+        }
         {
           this.state.noMatchFound ?
           <div className="customMessageNegative">

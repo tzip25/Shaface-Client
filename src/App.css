@@ -1,4 +1,4 @@
-/* YELLOW FFCE0C *//* TEAL 32BEBD  *//* PINK #9E2064 */
+/* YELLOW FFCE0C *//* TEAL 00b5ad  *//* PINK #9E2064 */
 
 .App {
   text-align: center;
@@ -18,6 +18,10 @@ ul {
   padding-top: 20px;
   padding-bottom: 20px;
   width: 80%;
+}
+
+.rotateSpinner {
+    z-index: 10;
 }
 
 .profilePage {
@@ -63,21 +67,22 @@ ul {
   color: white;
   font-size: 1em;
   font-weight: bold;
-  background-color: #9E2064;
+  background-color: #e21935;
   height: 40px;
   border-radius: 5px;
   margin-bottom: 10px;
-  margin-top: 10px
+  margin-top: 25px
 }
 .customMessage {
   padding-top: 10px;
+  padding-bottom: 10px;
   color: white;
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: bold;
-  background-color: #32BEBD;
-  height: 40px;
-  border-radius: 5px;
-  margin-bottom: 10px
+  background-color: #00b5ad;
+  /* height: 40px; */
+  /* border-radius: 5px; */
+  /* margin-bottom: 10px; */
 }
 .newSearchButton {
   float: left;
@@ -92,7 +97,7 @@ ul {
 }
 
 .aboutPageContainer {
-  color: #32BEBD;
+  color: #00b5ad;
   text-align: left;
   margin-left: 20px;
   max-width: 550px;
@@ -166,7 +171,7 @@ ul {
 
 .actorCard {
   background-color: white;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   display: inline-block;
   padding: 10px;
 }
@@ -345,6 +350,7 @@ ul {
   left: 0;
   bottom: 0;
   right: 0;
+  padding: 10px;
 }
 
 /* Transparent Overlay */
@@ -518,7 +524,7 @@ ul {
   .nav > .nav-links {
     width: 100%;
     height: 50px;
-    background-color: #32BEBD;
+    background-color: #00b5ad;
     transition: all .3s ease-in;
     overflow-y: hidden;
   }
@@ -570,6 +576,10 @@ ul {
   }
 
   .actorCard {
+    display: inline-block;
+    width: 100%;
+  }
+  .actorCardImage {
     width: 100%;
   }
 

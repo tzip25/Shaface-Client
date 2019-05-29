@@ -55,9 +55,10 @@ class Baconize extends React.Component {
       <div className="mainBody">
       <div className="newSearchButton">
         <Button
-          color="yellow"
+          content="Back to Account History"
+          color="teal"
           onClick={() => this.props.history.push('/profile')}
-        ><span className="customButton">Back to Account History</span></Button>
+        />
       </div>
       <Segment.Group compact className="actorTileSegment">
         <Segment inverted>
