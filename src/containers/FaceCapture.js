@@ -7,6 +7,9 @@ import Loading from '../components/Loading'
 import About from '../components/About'
 import adapter from '../adapter'
 
+const EXIF = require('exif-js')
+
+
 const Clarifai = require('clarifai');
 const app = new Clarifai.App({apiKey: '9bd2155eae344e3799387f96f70ac318'});
 let topMatchValue = ""
@@ -64,42 +67,108 @@ class FaceCapture extends React.Component {
     })
   }
 
+
+
   mobileAutoRotate = (e) => {
     e.persist()
 
     this.setState({
       rotate: true,
       imgPath: "",
+      foundActor: null,
     }, () => {
+
       const file = e.target.files[0]
       if(file){
-        let _URL = window.URL || window.webkitURL;
-        const img = new Image();
-        img.onload = () => {
-          // Auto-rotate Mobile Image
-          var canvas = document.createElement('canvas');
-          var canvasCtx = canvas.getContext('2d');
-          // set its dimension to rotated size
-          canvas.height = img.width;
-          canvas.width = img.height;
-          // rotate and draw source image into the off-screen canvas:
-          canvasCtx.rotate(Math.PI / 2);
-          canvasCtx.translate(0, -canvas.width);
-          canvasCtx.drawImage(img, 0, 0);
 
-          const dataURL = canvas.toDataURL("image/jpeg", 0.2);
-          const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
+        const exifReader = new FileReader();
+        exifReader.readAsArrayBuffer(file)
 
-          this.setState({
-            clarifaiBase64: clarifaiBase64,
-            imgPath: dataURL,
-            noMatchFound: null,
-            imgUrl: null,
-            foundActor: null,
-            rotate: false,
-          })
-        }
-        img.src = _URL.createObjectURL(file);
+        exifReader.onload = () => {
+          const imgExif = new Image();
+          imgExif.src = exifReader.result
+          let exif = EXIF.readFromBinaryFile(exifReader.result)
+
+          const reader = new FileReader();
+          reader.readAsDataURL(file)
+
+            reader.onload = () => {
+
+              // cteate Image
+              var img = new Image()
+              img.src = reader.result
+
+                img.onload = () => {
+                  // create an off-screen canvas
+                  var canvas = document.createElement('canvas')
+                  var canvasCtx = canvas.getContext('2d')
+                  // set its dimension to rotated size
+                  canvas.height = img.width;
+                  canvas.width = img.height;
+                  // rotate and draw source image into the off-screen canvas:
+
+                  if (exif.Orientation < 4) {
+                    canvas.width  = img.width;
+                    canvas.height = img.height;
+                  }
+
+                  switch(exif.Orientation){
+                    case 2:
+                        // horizontal flip
+                        canvasCtx.translate(canvas.width, 0);
+                        canvasCtx.scale(-1, 1);
+                        break;
+                    case 3:
+                        // 180° rotate left
+                        canvasCtx.translate(canvas.width, canvas.height);
+                        canvasCtx.rotate(Math.PI);
+                        break;
+                    case 4:
+                        // vertical flip
+                        canvasCtx.translate(0, canvas.height);
+                        canvasCtx.scale(1, -1);
+                        break;
+                    case 5:
+                        // vertical flip + 90 rotate right
+                        canvasCtx.rotate(0.5 * Math.PI);
+                        canvasCtx.scale(1, -1);
+                        break;
+                    case 6:
+                        // 90° rotate right
+                        canvasCtx.rotate(90*Math.PI/180);
+                        canvasCtx.translate(0, -canvas.width)
+                        break;
+                    case 7:
+                        // horizontal flip + 90 rotate right
+                        canvasCtx.rotate(0.5 * Math.PI);
+                        canvasCtx.translate(canvas.width, -canvas.height);
+                        canvasCtx.scale(-1, 1);
+                        break;
+                    case 8:
+                        // 90° rotate left
+                        canvasCtx.rotate(-0.5 * Math.PI);
+                        canvasCtx.translate(-canvas.width, 0);
+                        break;
+                    default:
+
+                  }
+
+                  canvasCtx.drawImage(img, 0, 0)
+
+                  const dataURL = canvas.toDataURL("image/jpeg", 1);
+                  const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
+
+                  this.setState({
+                    clarifaiBase64: clarifaiBase64,
+                    imgPath: dataURL,
+                    noMatchFound: null,
+                    imgUrl: null,
+                    rotate: false
+                  })
+              }
+            }
+      }
+
       } else {
         this.setState({
           rotate: false
