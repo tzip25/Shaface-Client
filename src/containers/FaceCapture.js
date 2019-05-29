@@ -73,34 +73,39 @@ class FaceCapture extends React.Component {
       imgPath: "",
     }, () => {
       const file = e.target.files[0]
-      let _URL = window.URL || window.webkitURL;
-      const img = new Image();
-      img.onload = () => {
-        // Auto-rotate Mobile Image
-        var canvas = document.createElement('canvas');
-        var canvasCtx = canvas.getContext('2d');
-        // set its dimension to rotated size
-        canvas.height = img.width;
-        canvas.width = img.height;
-        // rotate and draw source image into the off-screen canvas:
-        canvasCtx.rotate(Math.PI / 2);
-        canvasCtx.translate(0, -canvas.width);
-        canvasCtx.drawImage(img, 0, 0);
+      if(file){
+        let _URL = window.URL || window.webkitURL;
+        const img = new Image();
+        img.onload = () => {
+          // Auto-rotate Mobile Image
+          var canvas = document.createElement('canvas');
+          var canvasCtx = canvas.getContext('2d');
+          // set its dimension to rotated size
+          canvas.height = img.width;
+          canvas.width = img.height;
+          // rotate and draw source image into the off-screen canvas:
+          canvasCtx.rotate(Math.PI / 2);
+          canvasCtx.translate(0, -canvas.width);
+          canvasCtx.drawImage(img, 0, 0);
 
-        const dataURL = canvas.toDataURL("image/jpeg", 1);
-        const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
+          const dataURL = canvas.toDataURL("image/jpeg", 1);
+          const clarifaiBase64 = dataURL.split(`data:image/jpeg;base64,`)[1]
 
+          this.setState({
+            clarifaiBase64: clarifaiBase64,
+            imgPath: dataURL,
+            noMatchFound: null,
+            imgUrl: null,
+            foundActor: null,
+            rotate: false,
+          })
+        }
+        img.src = _URL.createObjectURL(file);
+      } else {
         this.setState({
-          clarifaiBase64: clarifaiBase64,
-          imgPath: dataURL,
-          noMatchFound: null,
-          imgUrl: null,
-          foundActor: null,
-          rotate: false,
+          rotate: false
         })
       }
-      img.src = _URL.createObjectURL(file);
-
     })
   }
 
