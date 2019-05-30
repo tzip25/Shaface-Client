@@ -11,7 +11,7 @@ const EXIF = require('exif-js')
 
 
 const Clarifai = require('clarifai');
-const app = new Clarifai.App({apiKey: '9bd2155eae344e3799387f96f70ac318'});
+const app = new Clarifai.App({apiKey: 'fbb8fb9fda094ef7a647b83786f97dee'});
 let topMatchValue = ""
 
 class FaceCapture extends React.Component {
@@ -303,11 +303,18 @@ class FaceCapture extends React.Component {
         {
           this.state.imgPath.length ?
             <>
+              <Button
+                className="searchFormButton"
+                id="findFaceButton"
+                type='submit'
+                onClick={this.fetchActorFromClarifai} >
+                <Icon name="search" />
+                Find That Face
+              </Button>
               <div className="imgPrevContainer">
                 <Icon size="large" link inverted name='redo alternate' className="imgRotate" onClick={this.rotate} />
                 <img src={this.state.imgPath} alt="img preview" className="imgPrev" id="imgPrev" />
               </div>
-              <Button content="Find That Face" color="teal" className="searchFormButton" type='submit' onClick={this.fetchActorFromClarifai} />
             </>
           :
           null
