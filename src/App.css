@@ -109,9 +109,9 @@ ul {
   margin-left: 20px;
   max-width: 550px;
 }
-
-.aboutP {
-  font-size: 1.2em;
+.founder {
+  float: right;
+  margin-left: 10px;
 }
 
 .searchPageDiv {
@@ -426,6 +426,8 @@ ul {
 }
 
 .loadingText {
+  /* font-family: 'Permanent Marker', cursive; */
+  padding: 10px;
   color: #ffffff;
   font-size: 45px;
 }

@@ -26,7 +26,7 @@ class Nav extends React.Component {
         <div className="nav">
 
           <div className="nav-header">
-          <Link to="/">
+          <Link to="/" onClick={this.closeNav}>
           <div className="nav-title">
             <img className="navLogo" src={"/whodat_logo.png"} alt="logo" width="17px"/>
             WhoDat
@@ -42,7 +42,7 @@ class Nav extends React.Component {
             About
             </span>
           </Link>
-          
+
           <Link onClick={this.closeNav} className={this.linkClass('/home')} to="/home">
             <span className={this.linkClass('/home')} >
             Find a Face

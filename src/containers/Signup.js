@@ -23,8 +23,8 @@ class Signup extends React.Component {
           {this.props.signupErrors && <Message negative><Message.Header>{this.props.signupErrors}</Message.Header></Message>}
           <Form.Group widths='equal'>
             <Form.Field>
-              <label>Firs Name</label>
-              <input name="firstName" onChange={this.handleChange} placeholder='Firs Name' />
+              <label>First Name</label>
+              <input name="firstName" onChange={this.handleChange} placeholder='First Name' />
             </Form.Field>
             <Form.Field>
               <label>Last Name</label>
