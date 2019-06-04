@@ -11,11 +11,14 @@ Create an account to save your search history and gain access to other fun featu
 
 http://www.whodat.actor/
 
-### Languages
+### Languages, Frameworks and Packages
 
 - React frontend
 - Redux 
 - Rails API backend
+- HTML5
+- Canvas
+- Exif-js
 
 ### API's
 
