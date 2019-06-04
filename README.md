@@ -1,9 +1,15 @@
 ## About 
+Think, "Shazam" for faces! (but don't worry - we only find famous faces).
 
+If you've ever watched a movie and thought to yourself,"Who the heck is that actor?! I know I've seen them before!", you'll love WhoDat.
 
-### Language
+Simply take a picture of the actor on your mobile device, or upload an image url / file and we'll tell you WhoDat actor is!
 
-- In the project directory, you can run:
+Create an account to save your search history and gain access to other fun features.
+
+### Access Live Project
+
+http://www.whodat.actor/
 
 ### Languages
 
@@ -13,5 +19,6 @@
 
 ### API's
 
-- Clarifai Facial Recognition
-- TMDP
+- Clarifai Facial Recognition API
+- TMDB API
+- IMDB
