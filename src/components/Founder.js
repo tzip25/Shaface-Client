@@ -7,7 +7,7 @@ class Founder extends React.Component {
     return(
       <>
         <h1 className="h1HeaderText">About the Founder</h1>
-        <img className="founder" src="founder-avatar.png" alt="tali scheer avatar" width="100px"/>
+        <img className="founder" src="/tali-avatar.png" alt="tali scheer avatar" width="100px"/>
         <p>Tali Scheer has a background in Marketing and Brand Design.
         After nearly 12 years with her previous company she took the leap to switch careers and become a software engineer.
         </p>
@@ -26,7 +26,7 @@ class Founder extends React.Component {
             size="large"
           />
           </a>
-          <a href="https://thatgalcodes.wordpress.com/" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.talischeer.com/" target="_blank" rel="noopener noreferrer">
           <Icon
             link
             name='wordpress'
